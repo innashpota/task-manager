@@ -1,0 +1,5 @@
+package ua.sumdu.j2se.Shpota.tasks;
+
+public class ArrayTaskList {
+    
+}

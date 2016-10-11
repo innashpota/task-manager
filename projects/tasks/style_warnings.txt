@@ -1,0 +1,37 @@
+Starting audit...
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:3: Missing a Javadoc comment.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:14:5: Missing a Javadoc comment.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:15:21: '=' is not followed by whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:21:5: Missing a Javadoc comment.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:30:5: Missing a Javadoc comment.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:34:5: Missing a Javadoc comment.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:38:5: Missing a Javadoc comment.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:42:5: Missing a Javadoc comment.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:46:5: Missing a Javadoc comment.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:47:11: 'if' is not followed by whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:53:5: Missing a Javadoc comment.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:54:11: 'if' is not followed by whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:61:5: Missing a Javadoc comment.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:62:11: 'if' is not followed by whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:72:5: Missing a Javadoc comment.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:73:11: 'if' is not followed by whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:79:5: Missing a Javadoc comment.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:80:11: 'if' is not followed by whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:86:5: Missing a Javadoc comment.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:87:11: 'if' is not followed by whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:94:5: Missing a Javadoc comment.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:98:5: Missing a Javadoc comment.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:99:11: 'if' is not followed by whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:100:15: 'if' is not followed by whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:112:38: 'cast' is not followed by whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:112:65: '/' is not preceded with whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:112:66: '/' is not followed by whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:113:55: '*' is not preceded with whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:113:56: '*' is not followed by whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:115:38: 'cast' is not followed by whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:115:61: '/' is not preceded with whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:115:62: '/' is not followed by whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:116:48: '*' is not preceded with whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:116:49: '*' is not followed by whitespace.
+D:\Programming\Java courses\Програма курсу\Семестр 1. Java 2 Standard Edition\java.course.dev\projects\tasks\sources\ua\sumdu\j2se\Shpota\tasks\Task.java:124:19: 'if' is not followed by whitespace.
+Audit done.
