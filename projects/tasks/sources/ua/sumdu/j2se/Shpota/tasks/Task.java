@@ -44,14 +44,14 @@ public class Task {
     }
     //Vstanovlennya chasu vykonannya dlya zadach, shcho ne povtoryuyut?sya
     public void setTime(int time) {
-        if(isRepeated) {
+        if (isRepeated) {
             isRepeated = false;
         }
         this.time = time;
     }
     //Zchytuvannya chasu vykonannya dlya zadach, shcho ne povtoryuyut?sya
     public int getTime() {
-        if(isRepeated) {
+        if (isRepeated) {
             return start;
         } else {
             return time;
@@ -59,7 +59,7 @@ public class Task {
     }
     //Vstanovlennya chasu vykonannya dlya zadach, shcho povtoryuyut?sya
     public void setTime(int start, int end, int interval) {
-        if(isRepeated) {
+        if (isRepeated) {
             this.start = start;
             this.end = end;
             this.interval = interval;
@@ -70,21 +70,21 @@ public class Task {
     }
     //Zchytuvannya chasu vykonannya dlya zadach, shcho povtoryuyut?sya
     public int getStartTime() {
-        if(isRepeated) {
+        if (isRepeated) {
             return start;
         } else {
             return time;
         }
     }
     public int getEndTime() {
-        if(isRepeated) {
+        if (isRepeated) {
             return end;
         } else {
             return time;
         }
     }
     public int getRepeatInterval() {
-        if(isRepeated) {
+        if (isRepeated) {
             return interval;
         } else {
             return 0;
@@ -96,8 +96,8 @@ public class Task {
     }
     //Povertaye chas nastupnoho vykonannya zadachi pislya vkazanoho chasu
     public int nextTimeAfter(int current) {
-        if(active) {
-            if(isRepeated) {
+        if (active) {
+            if (isRepeated) {
                 /*int k = (int)Math.ceil((end - start)/interval);
                 for(int i = 0; i < k; i++) {
                     int thisTime = start + i*interval;
@@ -109,10 +109,10 @@ public class Task {
                     if (current < start) {
                         return start;
                     } else {
-                        int k = (int)Math.ceil((current - start)/interval);
+                        int k = (current - start)/interval;
                         int thisTime = start + (k + 1) * interval;
                         
-                        int i = (int)Math.ceil((end - start)/interval);
+                        int i = (end - start)/interval;
                         int endTime = start + i * interval;
                         
                         if (current < endTime) {
@@ -121,7 +121,7 @@ public class Task {
                     }
                 }
             } else {
-                if(current < time) {
+                if (current < time) {
                     return time;
                 }
             }

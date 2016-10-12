@@ -2,4 +2,61 @@ package ua.sumdu.j2se.Shpota.tasks;
 
 public class ArrayTaskList {
     
+    private Task[] sourceListTask = new Task[0];
+    
+    //Metod, shcho dodaye do spysku vkazanu zadachu
+    public void add(Task task) {
+        int i = sourceListTask.length;
+        Task[] destinationListTask = new Task[i + 1];
+        System.arraycopy (sourceListTask, 0, destinationListTask, 0, i);
+        destinationListTask[destinationListTask.length - 1] = task;
+        sourceListTask = destinationListTask;
+    }
+    
+    /*Metod, shcho vydalyaye zadachu iz spysku i povertaye istynu, 
+    yakshcho taka zadacha bula u spysku*/
+    public boolean remove(Task task) {
+        int i = sourceListTask.length;
+        Task[] destinationListTask = new Task[i - 1];
+        for (int k = 0; k < i; k++) {
+            if (sourceListTask[k].equals(task)) {
+                System.arraycopy (sourceListTask, 0, destinationListTask, 0, k);
+                System.arraycopy (sourceListTask, k + 1, destinationListTask, k, 
+                                    i - k - 1);
+                sourceListTask = destinationListTask;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    //Metod, shcho povertaye kil?kist? zadach u spysku
+    public int size() {
+        int i = sourceListTask.length;
+        return i;
+    }
+    
+    //Metod, shcho povertaye zadachu, yaka znakhodyt?sya na vkazanomu mistsi
+    public Task getTask(int index) {
+        Task TaskIndex = sourceListTask[index];
+        return TaskIndex;
+    }
+    
+    /*Metod, shcho povertaye pidmnozhynu zadach, yaki zaplanovani na vykonannya 
+    khocha b raz pislya chasu from i ne piznishe nizh to*/
+    public ArrayTaskList incoming(int from, int to) {
+        Task[] destinationListTask = new Task[0];
+        int k = 0;
+        
+        for (int i = 0; i < sourceListTask.length; i++) {
+            Task task = sourceListTask[i];
+            if (task.nextTimeAfter(from) != -1 & 
+                    task.nextTimeAfter(from) < to) {
+                destinationListTask[k] = task;
+                k++;
+            }
+        }
+        sourceListTask = destinationListTask;
+        return sourceListTask;
+    }
 }
