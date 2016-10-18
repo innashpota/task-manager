@@ -6,6 +6,10 @@ public class ArrayTaskList {
     
     //Metod, shcho dodaye do spysku vkazanu zadachu
     public void add(Task task) {
+        if (task == null) {
+            throw new IllegalArgumentException("The task must be specified.");
+        }
+        
         int lengthOfSource = sourceListTask.length;
         Task[] destinationListTask = new Task[lengthOfSource + 1];
         System.arraycopy(sourceListTask, 0, destinationListTask, 0, lengthOfSource);
@@ -18,6 +22,10 @@ public class ArrayTaskList {
      * yakshcho taka zadacha bula u spysku
      */
     public boolean remove(Task task) {
+        if (task == null) {
+            throw new IllegalArgumentException("The task must be specified.");
+        }
+        
         int lengthOfSource = sourceListTask.length;
         Task[] destinationListTask = new Task[lengthOfSource - 1];
         
@@ -40,6 +48,10 @@ public class ArrayTaskList {
     
     //Metod, shcho povertaye zadachu, yaka znakhodyt?sya na vkazanomu mistsi
     public Task getTask(int index) {
+        if (index > sourceListTask.length) {
+            throw new ArrayIndexOutOfBoundsException("The output index for the array boundary.");
+        }
+        
         return sourceListTask[index];
     }
     
@@ -48,6 +60,10 @@ public class ArrayTaskList {
      * khocha b raz pislya chasu from i ne piznishe nizh to
      */
     public ArrayTaskList incoming(int from, int to) {
+        if (from < 0 || to < 0) {
+            throw new IllegalArgumentException("The time from and time to must be non-negative number.");
+        }
+        
         ArrayTaskList destinationList = new ArrayTaskList();
         
         for (int i = 0; i < sourceListTask.length; i++) {

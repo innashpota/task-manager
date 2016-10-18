@@ -12,6 +12,11 @@ public class Task {
     
     //Konstruktor neaktyvnoyi, bez povtorennya zadachi
     public Task(String title, int time) {
+        if (title == null || time < 0) {
+            throw new IllegalArgumentException("The title and time of the task must be specified." + 
+                        " Time must be non-negative number.");
+        }
+        
         this.title = title;
         this.time = time;
         active = false;
@@ -20,6 +25,11 @@ public class Task {
     
     //Konstruktor neaktyvnoyi, povtoryuvanoyi zadachi
     public Task(String title, int start, int end, int interval) {
+        if (title == null || start < 0 || end < 0 || interval <= 0) {
+            throw new IllegalArgumentException("The title, start, end and interval of the task must be specified." + 
+                        " Start, end and interval must be non-negative number.");
+        }
+        
         this.title = title;
         this.start = start;
         this.end = end;
@@ -30,6 +40,10 @@ public class Task {
     
     //Vstanovlennya nazvy zadachi
     public void setTitle(String title) {
+        if (title == null) {
+            throw new IllegalArgumentException("The title of the task must be specified.");
+        }
+        
         this.title = title;
     }
     
@@ -50,12 +64,17 @@ public class Task {
     
     //Vstanovlennya chasu vykonannya dlya zadach, shcho ne povtoryuyut?sya
     public void setTime(int time) {
+        if (time < 0) {
+            throw new IllegalArgumentException("The time of the task must be non-negative number.");
+        }
+        
         if (isRepeated) {
             isRepeated = false;
             start = time;
             end = time;
             interval = 0;
         }
+        
         this.time = time;
     }
     
@@ -70,10 +89,15 @@ public class Task {
     
     //Vstanovlennya chasu vykonannya dlya zadach, shcho povtoryuyut?sya
     public void setTime(int start, int end, int interval) {
+        if (start < 0 || end < 0 || interval <= 0) {
+            throw new IllegalArgumentException("Start, end and interval must be non-negative number.");
+        }
+        
         if (!isRepeated) {
             isRepeated = true;
             time = start;
         }
+        
         this.start = start;
         this.end = end;
         this.interval = interval;
@@ -111,6 +135,10 @@ public class Task {
     
     //Povertaye chas nastupnoho vykonannya zadachi pislya vkazanoho chasu
     public int nextTimeAfter(int current) {
+        if (current < 0) {
+            throw new IllegalArgumentException("Current must be non-negative number.");
+        }
+        
         if (active) {
             if (isRepeated) {
                 if (current < end) {
