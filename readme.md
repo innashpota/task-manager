@@ -18,3 +18,7 @@ $ git commit -m "A commit message..."
 ```shell
 $ git push origin master
 ```
+5) Get the latest changes
+```shell
+$ git pull
+```
