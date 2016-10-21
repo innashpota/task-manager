@@ -1,6 +1,6 @@
 package ua.sumdu.j2se.shpota.tasks;
 
-public class ArrayTaskList {
+public class ArrayTaskList extends TaskList {
     
     private Task[] sourceListTask = new Task[0];
     
@@ -53,27 +53,5 @@ public class ArrayTaskList {
         }
         
         return sourceListTask[index];
-    }
-    
-    /*
-     * Metod, shcho povertaye pidmnozhynu zadach, yaki zaplanovani na vykonannya 
-     * khocha b raz pislya chasu from i ne piznishe nizh to
-     */
-    public ArrayTaskList incoming(int from, int to) {
-        if (from < 0 || to < 0) {
-            throw new IllegalArgumentException("The time from and time to must be non-negative number.");
-        }
-        
-        ArrayTaskList destinationList = new ArrayTaskList();
-        
-        for (int i = 0; i < sourceListTask.length; i++) {
-            Task task = sourceListTask[i];
-            int nextTimeAfter = task.nextTimeAfter(from);
-            
-            if (nextTimeAfter != -1 && nextTimeAfter <= to) {
-                destinationList.add(task);
-            }
-        }
-        return destinationList;
     }
 }
