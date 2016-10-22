@@ -4,7 +4,7 @@ public class ArrayTaskList extends TaskList {
     
     private Task[] sourceListTask = new Task[0];
     
-    //Metod, shcho dodaye do spysku vkazanu zadachu
+    @Override
     public void add(Task task) {
         if (task == null) {
             throw new IllegalArgumentException("The task must be specified.");
@@ -17,10 +17,7 @@ public class ArrayTaskList extends TaskList {
         sourceListTask = destinationListTask;
     }
     
-    /*
-     * Metod, shcho vydalyaye zadachu iz spysku i povertaye istynu, 
-     * yakshcho taka zadacha bula u spysku
-     */
+    @Override
     public boolean remove(Task task) {
         if (task == null) {
             throw new IllegalArgumentException("The task must be specified.");
@@ -41,15 +38,15 @@ public class ArrayTaskList extends TaskList {
         return false;
     }
     
-    //Metod, shcho povertaye kil?kist? zadach u spysku
+    @Override
     public int size() {
         return sourceListTask.length;
     }
     
-    //Metod, shcho povertaye zadachu, yaka znakhodyt?sya na vkazanomu mistsi
+    @Override
     public Task getTask(int index) {
         if (index > sourceListTask.length) {
-            throw new ArrayIndexOutOfBoundsException("The output index for the array boundary.");
+            throw new ArrayIndexOutOfBoundsException("The task of this index does not exist.");
         }
         
         return sourceListTask[index];

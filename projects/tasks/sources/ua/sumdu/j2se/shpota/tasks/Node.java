@@ -2,22 +2,11 @@ package ua.sumdu.j2se.shpota.tasks;
 
 public class Node {
 
-    //Zminni klasu
-    private Task currentTask;
+    private final Task currentTask;
     private Node next;
     
     //Konstruktor uzla
-    public Node(Task task, Node next) {
-        if (task == null) {
-            throw new NullPointerException("The task of the node must be specified.");
-        }
-        
-        currentTask = task;
-        this.next = next;
-    }
-    
-    //Vstanovlennya zadachi
-    public void setTask(Task task) {
+    public Node(Task task) {
         if (task == null) {
             throw new NullPointerException("The task of the node must be specified.");
         }
@@ -26,17 +15,17 @@ public class Node {
     }
     
     //Zchytuvannya zadachi
-    public Task getTask() {
+    public Task getCurrentTask() {
         return currentTask;
     }
     
     //Vstanovlennya nastupnoyi zadachi
-    public void setNextTask(Node next) {
+    public void setNext(Node next) {
         this.next = next;
     }
     
     //Zchytuvannya nastupnoyi zadachi
-    public Node getNextTask() {
+    public Node getNext() {
         return next;
     }
 }

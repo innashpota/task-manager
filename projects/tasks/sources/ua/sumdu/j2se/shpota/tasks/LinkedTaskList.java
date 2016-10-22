@@ -2,35 +2,82 @@ package ua.sumdu.j2se.shpota.tasks;
 
 public class LinkedTaskList extends TaskList {
 
-    //Zminni klasu
     private int size = 0;
     private Node first;
-    private Node last;
     
-    //Metod, shcho dodaye do spysku vkazanu zadachu
+    @Override
     public void add(Task task) {
         if (task == null) {
             throw new NullPointerException("The task of the node must be specified.");
         }
         
-        //?
-    };
+        Node newNode = new Node(task);
+        
+        if (first == null) {
+            first = newNode;
+        } else {
+            Node current = first;
+            while (current.getNext() != null) {
+                current = current.getNext();
+            }
+            current.setNext(newNode);
+        }
+        size++;
+    }
     
-    /*
-     * Metod, shcho vydalyaye zadachu iz spysku i povertaye istynu, 
-     * yakshcho taka zadacha bula u spysku
-     */
+    @Override
     public boolean remove(Task task) {
-        return true;
-    };
+        if (task == null) {
+            throw new NullPointerException("The task of the node must be specified.");
+        }
+        
+        if (first != null) {
+            Node current = first;
+            Node previous = null;
+            
+            if (first.getCurrentTask().equals(task)) {
+                first = current.getNext();
+                size--;
+                return true;
+            }
+              
+            while (!current.getCurrentTask().equals(task)) {
+                if (current.getNext() == null) {
+                    previous = null;
+                    break;
+                }
+                previous = current;
+                current = current.getNext();
+            }
+            
+            if (previous != null) {
+                previous.setNext(current.getNext());
+                size--;
+                return true;
+            }
+        }
+        
+        
+        return false;
+    }
     
-    //Metod, shcho povertaye kil?kist? zadach u spysku
+    @Override
     public int size() {
-        return 0;
-    };
+        return size;
+    }
     
-    //Metod, shcho povertaye zadachu, yaka znakhodyt?sya na vkazanomu mistsi
+    @Override
     public Task getTask(int index) {
-        return null;
-    };
+        if (index < 0 || index > size) {
+            throw new IllegalArgumentException("The task of this index does not exist.");
+        }
+        
+        int i = 0;
+        Node current = first;
+        while (i < index) {
+            current = current.getNext();
+            i++;
+        }
+        return current.getCurrentTask();
+    }
 }

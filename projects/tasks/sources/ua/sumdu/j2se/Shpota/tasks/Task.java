@@ -1,7 +1,7 @@
 package ua.sumdu.j2se.shpota.tasks;
 
 public class Task {
-    //Zminni klasu
+    
     private String title;
     private int time;
     private int start;
