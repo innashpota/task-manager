@@ -41,15 +41,18 @@ abstract class TaskList {
     
     @Override
     public String toString() {
-        String s = "[ \n";
+        StringBuilder sb = new StringBuilder();
+        sb.append("[ \n");
         
         for (int i = 0; i < size(); i++) {
             if (i != size() - 1) {
-                s += getTask(i).toString() + "\n";
+                sb.append(getTask(i)).append("\n");
             } else {
-                s += getTask(i).toString() + "\n]";
+                sb.append(getTask(i)).append("\n]");
             }
         }
+        
+        String s = sb.toString();
         
         return s;
     }
@@ -78,7 +81,7 @@ abstract class TaskList {
             return false;
         }
         
-        if (getClass() != anObject.getClass()) {
+        if (!getClass().equals(anObject.getClass())) {
             return false;
         }
         

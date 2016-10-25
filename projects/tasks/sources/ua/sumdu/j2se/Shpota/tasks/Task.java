@@ -68,13 +68,10 @@ public class Task {
             throw new IllegalArgumentException("The time of the task must be non-negative number.");
         }
         
-        if (isRepeated) {
-            isRepeated = false;
-            start = time;
-            end = time;
-            interval = 0;
-        }
-        
+        isRepeated = false;
+        start = time;
+        end = time;
+        interval = 0;
         this.time = time;
     }
     
@@ -93,11 +90,8 @@ public class Task {
             throw new IllegalArgumentException("Start, end and interval must be non-negative number.");
         }
         
-        if (!isRepeated) {
-            isRepeated = true;
-            time = start;
-        }
-        
+        isRepeated = true;
+        time = start;
         this.start = start;
         this.end = end;
         this.interval = interval;
@@ -192,7 +186,7 @@ public class Task {
         if (!isRepeated) {
             result = hashCodeTitle * time * result;
         } else {
-            result = hashCodeTitle * start * end * interval * result;
+            result = hashCodeTitle * start * end + interval * result;
         }
         
         return result;
@@ -208,30 +202,18 @@ public class Task {
             return false;
         }
         
-        if (getClass() != anObject.getClass()) {
+        if (!getClass().equals(anObject.getClass())) {
             return false;
         }
         
         Task anotherTask = (Task)anObject;
         
-        if (!isRepeated) {
-            if (!title.equals(anotherTask.getTitle()) || 
-                time != anotherTask.getTime() ||
-                active != anotherTask.isActive() ||
-                isRepeated != anotherTask.isRepeated()) {
-                    return false;
-            }
-        } else {
-            if (!title.equals(anotherTask.getTitle()) || 
-                start != anotherTask.getStartTime() ||
-                end != anotherTask.getEndTime() ||
-                interval != anotherTask.getRepeatInterval() ||
-                active != anotherTask.isActive() ||
-                isRepeated != anotherTask.isRepeated()) {
-                    return false;
-            }
-        }
-        
-        return true;
+        return title.equals(anotherTask.getTitle()) && 
+                time == anotherTask.time &&
+                start == anotherTask.start &&
+                end == anotherTask.end &&
+                interval == anotherTask.interval &&
+                active == anotherTask.active &&
+                isRepeated == anotherTask.isRepeated;
     }
 }
