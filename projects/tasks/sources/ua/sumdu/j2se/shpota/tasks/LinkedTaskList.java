@@ -43,8 +43,7 @@ public class LinkedTaskList extends TaskList {
               
             while (!current.getCurrentTask().equals(task)) {
                 if (current.getNext() == null) {
-                    previous = null;
-                    break;
+                    return false;
                 }
                 previous = current;
                 current = current.getNext();
@@ -69,14 +68,13 @@ public class LinkedTaskList extends TaskList {
     @Override
     public Task getTask(int index) {
         if (index < 0 || index > size) {
-            throw new IllegalArgumentException("The task of this index does not exist.");
+            throw new IllegalArgumentException("The task of index = " + index + " does not exist.");
         }
         
-        int i = 0;
         Node current = first;
-        while (i < index) {
+        
+        for (int i = 0; i < index; i++) {
             current = current.getNext();
-            i++;
         }
         return current.getCurrentTask();
     }

@@ -164,4 +164,74 @@ public class Task {
         }
         return -1;
     }
+    
+    @Override
+    public String toString() {
+        String s = "";
+        
+        if (isRepeated) {
+            s = "Task title: " + title + ", start time: " + start + ", end time: " +
+                end + ", interval: " + interval + ". Task is repeated: " + isRepeated + 
+                " and is active: " + active + ".";
+        } else {
+            s = "Task title: " + title + ", time: " + time + ". Task is repeated: " + 
+                isRepeated + " and is active: " + active + ".";
+        }
+        
+        return s;
+    }
+    
+    @Override
+    public int hashCode() {
+        int constant = 31;
+        int result = 0;
+        int hashCodeTitle = title.hashCode();
+        
+        result = constant * hashCodeTitle;
+        
+        if (!isRepeated) {
+            result = hashCodeTitle * time * result;
+        } else {
+            result = hashCodeTitle * start * end * interval * result;
+        }
+        
+        return result;
+    }
+    
+    @Override
+    public boolean equals(Object anObject) {
+        if (this == anObject) {
+            return true;
+        }
+        
+        if (anObject == null) {
+            return false;
+        }
+        
+        if (getClass() != anObject.getClass()) {
+            return false;
+        }
+        
+        Task anotherTask = (Task)anObject;
+        
+        if (!isRepeated) {
+            if (!title.equals(anotherTask.getTitle()) || 
+                time != anotherTask.getTime() ||
+                active != anotherTask.isActive() ||
+                isRepeated != anotherTask.isRepeated()) {
+                    return false;
+            }
+        } else {
+            if (!title.equals(anotherTask.getTitle()) || 
+                start != anotherTask.getStartTime() ||
+                end != anotherTask.getEndTime() ||
+                interval != anotherTask.getRepeatInterval() ||
+                active != anotherTask.isActive() ||
+                isRepeated != anotherTask.isRepeated()) {
+                    return false;
+            }
+        }
+        
+        return true;
+    }
 }

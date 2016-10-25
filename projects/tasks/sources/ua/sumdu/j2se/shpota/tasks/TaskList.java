@@ -38,4 +38,64 @@ abstract class TaskList {
         }
         return destinationList;
     }
+    
+    @Override
+    public String toString() {
+        String s = "[ \n";
+        
+        for (int i = 0; i < size(); i++) {
+            if (i != size() - 1) {
+                s += getTask(i).toString() + "\n";
+            } else {
+                s += getTask(i).toString() + "\n]";
+            }
+        }
+        
+        return s;
+    }
+    
+    @Override
+    public int hashCode() {
+        int constant = 31;
+        int result = 0;
+        
+        result = constant * size();
+        
+        for (int i = 0; i < size(); i++) {
+            result = result * getTask(i).hashCode();
+        }
+        
+        return result;
+    }
+    
+    @Override
+    public boolean equals(Object anObject) {
+        if (this == anObject) {
+            return true;
+        }
+        
+        if (anObject == null) {
+            return false;
+        }
+        
+        if (getClass() != anObject.getClass()) {
+            return false;
+        }
+        
+        TaskList anotherTaskList = (TaskList)anObject;
+        
+        if (size() != anotherTaskList.size()) {
+            return false;
+        }
+        
+        for (int i = 0; i < size(); i++) {
+            Task currentTaskList = getTask(i);
+            Task currentAnotherTaskList = anotherTaskList.getTask(i);
+            if (!currentTaskList.equals(currentAnotherTaskList)) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
 }

@@ -46,7 +46,7 @@ public class ArrayTaskList extends TaskList {
     @Override
     public Task getTask(int index) {
         if (index > sourceListTask.length) {
-            throw new ArrayIndexOutOfBoundsException("The task of this index does not exist.");
+            throw new ArrayIndexOutOfBoundsException("The task of index = " + index + " does not exist.");
         }
         
         return sourceListTask[index];
