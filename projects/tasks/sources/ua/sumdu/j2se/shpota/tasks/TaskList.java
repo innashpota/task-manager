@@ -1,6 +1,8 @@
 package ua.sumdu.j2se.shpota.tasks;
 
-abstract class TaskList {
+import java.util.Iterator;
+
+abstract class TaskList implements Iterable<Task> {
     
     //Metod, shcho dodaye do spysku vkazanu zadachu
     abstract void add(Task task);
@@ -28,8 +30,7 @@ abstract class TaskList {
         
         TaskList destinationList = new ArrayTaskList();
         
-        for (int i = 0; i < size(); i++) {
-            Task task = getTask(i);
+        for (Task task : this) {
             int nextTimeAfter = task.nextTimeAfter(from);
             
             if (nextTimeAfter != -1 && nextTimeAfter <= to) {
@@ -42,19 +43,15 @@ abstract class TaskList {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("[ \n");
+        sb.append("[\n");
         
-        for (int i = 0; i < size(); i++) {
-            if (i != size() - 1) {
-                sb.append(getTask(i)).append("\n");
-            } else {
-                sb.append(getTask(i)).append("\n]");
-            }
+        for (Task task : this) {
+            sb.append(task).append("\n");
         }
         
-        String s = sb.toString();
+        sb.append("]");
         
-        return s;
+        return sb.toString();
     }
     
     @Override
@@ -64,8 +61,8 @@ abstract class TaskList {
         
         result = constant * size();
         
-        for (int i = 0; i < size(); i++) {
-            result = result * getTask(i).hashCode();
+        for (Task task : this) {
+            result = result * task.hashCode();
         }
         
         return result;
@@ -92,9 +89,9 @@ abstract class TaskList {
         }
         
         for (int i = 0; i < size(); i++) {
-            Task currentTaskList = getTask(i);
-            Task currentAnotherTaskList = anotherTaskList.getTask(i);
-            if (!currentTaskList.equals(currentAnotherTaskList)) {
+            Task currentTask = getTask(i);
+            Task anotherTask = anotherTaskList.getTask(i);
+            if (!currentTask.equals(anotherTask)) {
                 return false;
             }
         }

@@ -7,10 +7,14 @@ public class Main {
         Task task1 = new Task("wigfkjdbcsn",1,10,3);
         Task task2 = new Task("1",1);
         
-        LinkedTaskList list = new LinkedTaskList();
+        ArrayTaskList list = new ArrayTaskList();
         list.add(task);
         list.add(task1);
         list.add(task2);
+        
+        for (Task t : list) {
+            System.out.println(t);
+        }
         
         Task t = new Task("101",1);
         Task t1 = new Task("wigfkjdbcn",1,10,3);

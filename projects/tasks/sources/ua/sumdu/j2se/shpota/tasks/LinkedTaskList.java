@@ -1,6 +1,8 @@
 package ua.sumdu.j2se.shpota.tasks;
 
-public class LinkedTaskList extends TaskList {
+import java.util.Iterator;
+
+public class LinkedTaskList extends TaskList implements Iterable<Task> {
 
     private int size = 0;
     private Node first;
@@ -77,5 +79,10 @@ public class LinkedTaskList extends TaskList {
             current = current.getNext();
         }
         return current.getCurrentTask();
+    }
+    
+    @Override
+    public Iterator<Task> iterator() {
+        return new LinkedTaskListIterator(this);
     }
 }

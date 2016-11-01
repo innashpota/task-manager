@@ -1,6 +1,8 @@
 package ua.sumdu.j2se.shpota.tasks;
 
-public class ArrayTaskList extends TaskList {
+import java.util.Iterator;
+
+public class ArrayTaskList extends TaskList implements Iterable<Task> {
     
     private Task[] sourceListTask = new Task[0];
     
@@ -50,5 +52,10 @@ public class ArrayTaskList extends TaskList {
         }
         
         return sourceListTask[index];
+    }
+    
+    @Override
+    public Iterator<Task> iterator() {
+        return new ArrayTaskListIterator(this);
     }
 }
