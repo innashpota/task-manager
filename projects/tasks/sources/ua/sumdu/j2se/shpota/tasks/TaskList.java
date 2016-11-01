@@ -82,7 +82,7 @@ abstract class TaskList implements Iterable<Task> {
             return false;
         }
         
-        TaskList anotherTaskList = (TaskList)anObject;
+        TaskList anotherTaskList = (TaskList) anObject;
         
         if (size() != anotherTaskList.size()) {
             return false;

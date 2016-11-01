@@ -1,6 +1,7 @@
 package ua.sumdu.j2se.shpota.tasks;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class LinkedTaskList extends TaskList implements Iterable<Task> {
 
@@ -83,6 +84,40 @@ public class LinkedTaskList extends TaskList implements Iterable<Task> {
     
     @Override
     public Iterator<Task> iterator() {
-        return new LinkedTaskListIterator(this);
+        return new LinkedTaskListIterator();
+    }
+    
+    private class LinkedTaskListIterator implements Iterator<Task> {
+        
+        private Node lastReturned = null;
+        private Node next = first;
+        private boolean currentElementRemove = false;
+        
+        @Override
+        public boolean hasNext() {
+            return next != null;
+        }
+        
+        @Override
+        public Task next() {
+            if (next == null) {
+                throw new NoSuchElementException();
+            }
+            
+            lastReturned = next;
+            next = next.getNext();
+            currentElementRemove = true;
+            return lastReturned.getCurrentTask();
+        }
+        
+        @Override
+        public void remove() {
+            if (!currentElementRemove)
+                throw new IllegalStateException();
+
+            if (currentElementRemove) {
+                LinkedTaskList.this.remove(lastReturned.getCurrentTask());
+            }
+        }
     }
 }
