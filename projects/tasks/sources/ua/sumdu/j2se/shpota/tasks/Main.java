@@ -1,9 +1,11 @@
 package ua.sumdu.j2se.shpota.tasks;
 
+import java.util.Iterator;
+
 public class Main {
     
     public static void main(String[] args) {
-        Task task = new Task("1",1);
+        /*Task task = new Task("1",1);
         Task task1 = new Task("wigfkjdbcsn",1,10,3);
         Task task2 = new Task("1",1);
         
@@ -14,7 +16,7 @@ public class Main {
         
         for (Task t : list) {
             System.out.println(t);
-        }
+        }*/
         
         Task t = new Task("101",1);
         Task t1 = new Task("wigfkjdbcn",1,10,3);
@@ -25,8 +27,29 @@ public class Main {
         list1.add(t1);
         list1.add(t2);
         
-        System.out.println(task.equals(new Object()));
-        System.out.println("Hash code " + list1.hashCode());
+        Iterator<Task> iterator = list1.iterator();
+        while (iterator.hasNext()) {
+            Task curr = iterator.next();
+            System.out.println(curr);
+            if (curr.getTitle().equals("wigfkjdbcn")) {
+                System.out.println("aaaaaaaaaaaaaaaaaaa");
+                iterator.remove();
+                iterator.remove();
+            }
+        }
+    /*    System.out.println(iterator.next());
+        System.out.println(iterator.next());
+        iterator.remove();
+        System.out.println(iterator.next());*/
+        
+        System.out.println("--------------------");
+        for (Task task: list1) {
+            System.out.println("#### " + task);
+        }
+
+        
+        /*System.out.println(task.equals(new Object()));
+        System.out.println("Hash code " + list1.hashCode());*/
         
         /*for(int i = 0; i < list.size(); i++){
             System.out.println("Task " + list.getTask(i));

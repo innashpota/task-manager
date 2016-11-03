@@ -31,7 +31,7 @@ public class LinkedTaskList extends TaskList implements Iterable<Task> {
     @Override
     public boolean remove(Task task) {
         if (task == null) {
-            throw new NullPointerException("The task of the node must be specified.");
+            throw new NullPointerException("The task must be specified.");
         }
         
         if (first != null) {
@@ -89,9 +89,9 @@ public class LinkedTaskList extends TaskList implements Iterable<Task> {
     
     private class LinkedTaskListIterator implements Iterator<Task> {
         
-        private Node lastReturned = null;
+        private Node prevPrevious = null;
+        private Node previous = null;
         private Node next = first;
-        private boolean currentElementRemove = false;
         
         @Override
         public boolean hasNext() {
@@ -101,23 +101,31 @@ public class LinkedTaskList extends TaskList implements Iterable<Task> {
         @Override
         public Task next() {
             if (next == null) {
-                throw new NoSuchElementException();
+                throw new NoSuchElementException("The iteration has no more elements");
             }
             
-            lastReturned = next;
+            prevPrevious = previous;
+            previous = next;
             next = next.getNext();
-            currentElementRemove = true;
-            return lastReturned.getCurrentTask();
+            return previous.getCurrentTask();
         }
         
         @Override
         public void remove() {
-            if (!currentElementRemove)
-                throw new IllegalStateException();
-
-            if (currentElementRemove) {
-                LinkedTaskList.this.remove(lastReturned.getCurrentTask());
+            if (previous == null) {
+                throw new IllegalStateException("The next method has not yet been called, " + 
+                    "or the remove method has already been called after the last call to the next method");
             }
+            
+            if (previous.getCurrentTask().equals(first.getCurrentTask())) {
+                first = next;
+            } else {
+                if (previous != null) {
+                    prevPrevious.setNext(next);
+                }
+            }
+            size--;
+            previous = null;
         }
     }
 }
