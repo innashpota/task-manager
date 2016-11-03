@@ -33,3 +33,8 @@ $ git status
 ```shell
 $ git push origin some-practic-number-and-name
 ```
+8) D:\programming\java\program.of.course\standard.edition\java.course.dev\nc-labs\projects\tasks\build
+
+```shell
+$ java -cp tasks.jar ua.sumdu.j2se.shpota.tasks.Main
+```
