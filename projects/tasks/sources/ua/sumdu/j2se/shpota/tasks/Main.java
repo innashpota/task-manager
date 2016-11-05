@@ -5,62 +5,29 @@ import java.util.Iterator;
 public class Main {
     
     public static void main(String[] args) {
-        /*Task task = new Task("1",1);
-        Task task1 = new Task("wigfkjdbcsn",1,10,3);
-        Task task2 = new Task("1",1);
-        
-        ArrayTaskList list = new ArrayTaskList();
-        list.add(task);
-        list.add(task1);
-        list.add(task2);
-        
-        for (Task t : list) {
-            System.out.println(t);
-        }*/
-        
-        Task t = new Task("101",1);
-        Task t1 = new Task("wigfkjdbcn",1,10,3);
+        Task t = new Task("1",1);
+        Task t1 = new Task("2",1,10,3);
         Task t2 = new Task("3",120);
+        Task t3 = new Task("4",1);
         
-        LinkedTaskList list1 = new LinkedTaskList();
-        list1.add(t);
-        list1.add(t1);
-        list1.add(t2);
+        LinkedTaskList list = new LinkedTaskList();
+        list.add(t);
+        list.add(t1);
+        list.add(t2);
+        list.add(t3);
         
-        Iterator<Task> iterator = list1.iterator();
+        Iterator<Task> iterator = list.iterator();
         while (iterator.hasNext()) {
             Task curr = iterator.next();
-            System.out.println(curr);
-            if (curr.getTitle().equals("wigfkjdbcn")) {
-                System.out.println("aaaaaaaaaaaaaaaaaaa");
-                iterator.remove();
-                iterator.remove();
+            if (curr != t) {
+               iterator.remove();
+               iterator.remove();
             }
         }
-    /*    System.out.println(iterator.next());
-        System.out.println(iterator.next());
-        iterator.remove();
-        System.out.println(iterator.next());*/
         
         System.out.println("--------------------");
-        for (Task task: list1) {
+        for (Task task: list) {
             System.out.println("#### " + task);
         }
-
-        
-        /*System.out.println(task.equals(new Object()));
-        System.out.println("Hash code " + list1.hashCode());*/
-        
-        /*for(int i = 0; i < list.size(); i++){
-            System.out.println("Task " + list.getTask(i));
-            //System.out.println("Size of list " + list.size());
-        }
-        
-        System.out.println(" Delete task from list: " + list.remove(new Task("4",1)));
-        for(int i = 0; i < list.size(); i++){
-            System.out.println("Task " + list.getTask(i));
-        }*/
-        
-        //System.out.println(list.toString());
     }
 }

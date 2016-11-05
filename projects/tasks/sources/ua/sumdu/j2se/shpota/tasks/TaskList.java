@@ -87,11 +87,14 @@ abstract class TaskList implements Iterable<Task> {
         if (size() != anotherTaskList.size()) {
             return false;
         }
-        for (Task currentTask : this) {
-            for (Task anotherTask : anotherTaskList) {
-                if (!currentTask.equals(anotherTask)) {
-                    return false;
-                }
+        
+        Iterator<Task> iterator = this.iterator();
+        Iterator<Task> anotherIterator = anotherTaskList.iterator();
+        while (iterator.hasNext()) {
+            Task currentTask = iterator.next();
+            Task anotherTask = anotherIterator.next();
+            if (!currentTask.equals(anotherTask)) {
+                 return false;
             }
         }
         

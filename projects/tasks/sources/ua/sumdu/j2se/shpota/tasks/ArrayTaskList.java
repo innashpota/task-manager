@@ -2,7 +2,7 @@ package ua.sumdu.j2se.shpota.tasks;
 
 import java.util.Iterator;
 
-public class ArrayTaskList extends TaskList implements Iterable<Task> {
+public class ArrayTaskList extends TaskList {
     
     private Task[] sourceListTask = new Task[0];
     

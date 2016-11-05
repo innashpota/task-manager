@@ -3,7 +3,7 @@ package ua.sumdu.j2se.shpota.tasks;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedTaskList extends TaskList implements Iterable<Task> {
+public class LinkedTaskList extends TaskList {
 
     private int size = 0;
     private Node first;
@@ -89,43 +89,55 @@ public class LinkedTaskList extends TaskList implements Iterable<Task> {
     
     private class LinkedTaskListIterator implements Iterator<Task> {
         
-        private Node prevPrevious = null;
         private Node previous = null;
-        private Node next = first;
+        private Node lastReturned =  null;
+        private boolean nextInvoked = false;
         
         @Override
         public boolean hasNext() {
-            return next != null;
+            if (lastReturned == null) {
+                return first != null;
+            }
+            
+            return lastReturned.getNext() != null;
         }
-        
+
         @Override
         public Task next() {
-            if (next == null) {
+            if (lastReturned == null) {
+                lastReturned = first;
+            } else {
+                previous = lastReturned;
+                lastReturned = lastReturned.getNext();
+            }
+ 
+            if (lastReturned == null) {
                 throw new NoSuchElementException("The iteration has no more elements");
             }
             
-            prevPrevious = previous;
-            previous = next;
-            next = next.getNext();
-            return previous.getCurrentTask();
+            nextInvoked = true;
+            
+            return lastReturned.getCurrentTask();
         }
-        
+
         @Override
         public void remove() {
-            if (previous == null) {
+            if (!nextInvoked) {
                 throw new IllegalStateException("The next method has not yet been called, " + 
-                    "or the remove method has already been called after the last call to the next method");
+                        "or the remove method has already been called after the last call to the next method");
             }
             
-            if (previous.getCurrentTask().equals(first.getCurrentTask())) {
-                first = next;
+            if (lastReturned == first) {
+                first = lastReturned.getNext();
+                lastReturned = null;
             } else {
-                if (previous != null) {
-                    prevPrevious.setNext(next);
-                }
+                //System.out.println("+++++++++ " + lastReturned.getCurrentTask().getTitle());
+                previous.setNext(lastReturned.getNext());
+                lastReturned = previous;
             }
+            
             size--;
-            previous = null;
+            nextInvoked = false;
         }
     }
 }
