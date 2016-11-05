@@ -1,5 +1,7 @@
 package ua.sumdu.j2se.shpota.tasks;
 
+import java.util.Iterator;
+
 public class ArrayTaskList extends TaskList {
     
     private Task[] sourceListTask = new Task[0];
@@ -46,9 +48,14 @@ public class ArrayTaskList extends TaskList {
     @Override
     public Task getTask(int index) {
         if (index > sourceListTask.length) {
-            throw new ArrayIndexOutOfBoundsException("The task of this index does not exist.");
+            throw new ArrayIndexOutOfBoundsException("The task of index = " + index + " does not exist.");
         }
         
         return sourceListTask[index];
+    }
+    
+    @Override
+    public Iterator<Task> iterator() {
+        return new ArrayTaskListIterator(this);
     }
 }

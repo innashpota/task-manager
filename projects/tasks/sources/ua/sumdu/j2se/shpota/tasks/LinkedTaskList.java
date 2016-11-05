@@ -1,5 +1,8 @@
 package ua.sumdu.j2se.shpota.tasks;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class LinkedTaskList extends TaskList {
 
     private int size = 0;
@@ -28,7 +31,7 @@ public class LinkedTaskList extends TaskList {
     @Override
     public boolean remove(Task task) {
         if (task == null) {
-            throw new NullPointerException("The task of the node must be specified.");
+            throw new NullPointerException("The task must be specified.");
         }
         
         if (first != null) {
@@ -43,8 +46,7 @@ public class LinkedTaskList extends TaskList {
               
             while (!current.getCurrentTask().equals(task)) {
                 if (current.getNext() == null) {
-                    previous = null;
-                    break;
+                    return false;
                 }
                 previous = current;
                 current = current.getNext();
@@ -69,15 +71,73 @@ public class LinkedTaskList extends TaskList {
     @Override
     public Task getTask(int index) {
         if (index < 0 || index > size) {
-            throw new IllegalArgumentException("The task of this index does not exist.");
+            throw new IllegalArgumentException("The task of index = " + index + " does not exist.");
         }
         
-        int i = 0;
         Node current = first;
-        while (i < index) {
+        
+        for (int i = 0; i < index; i++) {
             current = current.getNext();
-            i++;
         }
         return current.getCurrentTask();
+    }
+    
+    @Override
+    public Iterator<Task> iterator() {
+        return new LinkedTaskListIterator();
+    }
+    
+    private class LinkedTaskListIterator implements Iterator<Task> {
+        
+        private Node previous = null;
+        private Node lastReturned =  null;
+        private boolean nextInvoked = false;
+        
+        @Override
+        public boolean hasNext() {
+            if (lastReturned == null) {
+                return first != null;
+            }
+            
+            return lastReturned.getNext() != null;
+        }
+
+        @Override
+        public Task next() {
+            if (lastReturned == null) {
+                lastReturned = first;
+            } else {
+                previous = lastReturned;
+                lastReturned = lastReturned.getNext();
+            }
+ 
+            if (lastReturned == null) {
+                throw new NoSuchElementException("The iteration has no more elements");
+            }
+            
+            nextInvoked = true;
+            
+            return lastReturned.getCurrentTask();
+        }
+
+        @Override
+        public void remove() {
+            if (!nextInvoked) {
+                throw new IllegalStateException("The next method has not yet been called, " + 
+                        "or the remove method has already been called after the last call to the next method");
+            }
+            
+            if (lastReturned == first) {
+                first = lastReturned.getNext();
+                lastReturned = null;
+            } else {
+                //System.out.println("+++++++++ " + lastReturned.getCurrentTask().getTitle());
+                previous.setNext(lastReturned.getNext());
+                lastReturned = previous;
+            }
+            
+            size--;
+            nextInvoked = false;
+        }
     }
 }

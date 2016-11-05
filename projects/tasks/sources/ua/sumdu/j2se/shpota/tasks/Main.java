@@ -1,24 +1,33 @@
 package ua.sumdu.j2se.shpota.tasks;
 
+import java.util.Iterator;
+
 public class Main {
     
     public static void main(String[] args) {
-        Task task = new Task("1",1);
-        Task task1 = new Task("2",1);
-        Task task2 = new Task("3",1);
-        //System.out.println("######Task: " + task);
+        Task t = new Task("1",1);
+        Task t1 = new Task("2",1,10,3);
+        Task t2 = new Task("3",120);
+        Task t3 = new Task("4",1);
+        
         LinkedTaskList list = new LinkedTaskList();
-        list.add(task);
-        list.add(task1);
-        list.add(task2);
-        for(int i = 0; i < list.size(); i++){
-            System.out.println("Task " + list.getTask(i));
-            //System.out.println("Size of list " + list.size());
+        list.add(t);
+        list.add(t1);
+        list.add(t2);
+        list.add(t3);
+        
+        Iterator<Task> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            Task curr = iterator.next();
+            if (curr != t) {
+               iterator.remove();
+               iterator.remove();
+            }
         }
         
-        System.out.println(" Delete task from list: " + list.remove(new Task("4",1)));
-        for(int i = 0; i < list.size(); i++){
-            System.out.println("Task " + list.getTask(i));
+        System.out.println("--------------------");
+        for (Task task: list) {
+            System.out.println("#### " + task);
         }
     }
 }

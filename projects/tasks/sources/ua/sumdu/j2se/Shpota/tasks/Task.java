@@ -68,13 +68,10 @@ public class Task {
             throw new IllegalArgumentException("The time of the task must be non-negative number.");
         }
         
-        if (isRepeated) {
-            isRepeated = false;
-            start = time;
-            end = time;
-            interval = 0;
-        }
-        
+        isRepeated = false;
+        start = time;
+        end = time;
+        interval = 0;
         this.time = time;
     }
     
@@ -93,11 +90,8 @@ public class Task {
             throw new IllegalArgumentException("Start, end and interval must be non-negative number.");
         }
         
-        if (!isRepeated) {
-            isRepeated = true;
-            time = start;
-        }
-        
+        isRepeated = true;
+        time = start;
         this.start = start;
         this.end = end;
         this.interval = interval;
@@ -163,5 +157,63 @@ public class Task {
             }
         }
         return -1;
+    }
+    
+    @Override
+    public String toString() {
+        String s = "";
+        
+        if (isRepeated) {
+            s = "Task title: " + title + ", start time: " + start + ", end time: " +
+                end + ", interval: " + interval + ". Task is repeated: " + isRepeated + 
+                " and is active: " + active + ".";
+        } else {
+            s = "Task title: " + title + ", time: " + time + ". Task is repeated: " + 
+                isRepeated + " and is active: " + active + ".";
+        }
+        
+        return s;
+    }
+    
+    @Override
+    public int hashCode() {
+        int constant = 31;
+        int result = 0;
+        int hashCodeTitle = title.hashCode();
+        
+        result = constant * hashCodeTitle;
+        
+        if (!isRepeated) {
+            result = hashCodeTitle * time * result;
+        } else {
+            result = hashCodeTitle * start * end + interval * result;
+        }
+        
+        return result;
+    }
+    
+    @Override
+    public boolean equals(Object anObject) {
+        if (this == anObject) {
+            return true;
+        }
+        
+        if (anObject == null) {
+            return false;
+        }
+        
+        if (!getClass().equals(anObject.getClass())) {
+            return false;
+        }
+        
+        Task anotherTask = (Task)anObject;
+        
+        return title.equals(anotherTask.getTitle()) && 
+                time == anotherTask.time &&
+                start == anotherTask.start &&
+                end == anotherTask.end &&
+                interval == anotherTask.interval &&
+                active == anotherTask.active &&
+                isRepeated == anotherTask.isRepeated;
     }
 }
