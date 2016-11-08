@@ -1,18 +1,20 @@
 package ua.sumdu.j2se.shpota.tasks;
 
+import java.util.Date;
+
 public class Task {
     
     private String title;
-    private int time;
-    private int start;
-    private int end;
+    private Date time;
+    private Date start;
+    private Date end;
     private int interval;
     private boolean active;
     private boolean isRepeated;
     
     //Konstruktor neaktyvnoyi, bez povtorennya zadachi
-    public Task(String title, int time) {
-        if (title == null || time < 0) {
+    public Task(String title, Date time) {
+        if (title == null || time == null) {
             throw new IllegalArgumentException("The title and time of the task must be specified." + 
                         " Time must be non-negative number.");
         }
@@ -24,8 +26,8 @@ public class Task {
     }
     
     //Konstruktor neaktyvnoyi, povtoryuvanoyi zadachi
-    public Task(String title, int start, int end, int interval) {
-        if (title == null || start < 0 || end < 0 || interval <= 0) {
+    public Task(String title, Date start, Date end, int interval) {
+        if (title == null || start == null || end == null || interval <= 0) {
             throw new IllegalArgumentException("The title, start, end and interval of the task must be specified." + 
                         " Start, end and interval must be non-negative number.");
         }
@@ -63,8 +65,8 @@ public class Task {
     }
     
     //Vstanovlennya chasu vykonannya dlya zadach, shcho ne povtoryuyut?sya
-    public void setTime(int time) {
-        if (time < 0) {
+    public void setTime(Date time) {
+        if (time == null) {
             throw new IllegalArgumentException("The time of the task must be non-negative number.");
         }
         
@@ -76,7 +78,7 @@ public class Task {
     }
     
     //Zchytuvannya chasu vykonannya dlya zadach, shcho ne povtoryuyut?sya
-    public int getTime() {
+    public Date getTime() {
         if (isRepeated) {
             return start;
         } else {
@@ -85,8 +87,8 @@ public class Task {
     }
     
     //Vstanovlennya chasu vykonannya dlya zadach, shcho povtoryuyut?sya
-    public void setTime(int start, int end, int interval) {
-        if (start < 0 || end < 0 || interval <= 0) {
+    public void setTime(Date start, Date end, int interval) {
+        if (start == null || end == null || interval <= 0) {
             throw new IllegalArgumentException("Start, end and interval must be non-negative number.");
         }
         
@@ -98,7 +100,7 @@ public class Task {
     }
     
     //Zchytuvannya chasu vykonannya dlya zadach, shcho povtoryuyut?sya
-    public int getStartTime() {
+    public Date getStartTime() {
         if (isRepeated) {
             return start;
         } else {
@@ -106,7 +108,7 @@ public class Task {
         }
     }
     
-    public int getEndTime() {
+    public Date getEndTime() {
         if (isRepeated) {
             return end;
         } else {
@@ -128,35 +130,35 @@ public class Task {
     }
     
     //Povertaye chas nastupnoho vykonannya zadachi pislya vkazanoho chasu
-    public int nextTimeAfter(int current) {
-        if (current < 0) {
+    public Date nextTimeAfter(Date current) {
+        if (current == null) {
             throw new IllegalArgumentException("Current must be non-negative number.");
         }
         
-        if (active) {
-            if (isRepeated) {
-                if (current < end) {
-                    if (current < start) {
-                        return start;
-                    } else {
-                        int numberOfFullRepeats = (current - start) / interval;
-                        int thisTime = start + (numberOfFullRepeats + 1) * interval;
-                        
-                        int allFullRepeats = (end - start) / interval;
-                        int endTime = start + allFullRepeats * interval;
-                        
-                        if (current < endTime) {
-                            return thisTime;
-                        }
-                    }
-                }
+        if (!active) {
+            return null;
+        }
+        
+        if (!isRepeated) {
+            if (current.before(time)) {
+                return time;
+            }
+        } else {
+            if (current.before(start)) {
+                return start;
             } else {
-                if (current < time) {
-                    return time;
+                Date thisTime = this.start;
+                while (thisTime.before(current) || thisTime.equals(current)) {
+                    thisTime = new Date(thisTime.getTime() + interval * 1000);
+                }
+                
+                if (thisTime.before(end) || thisTime.equals(end)) {
+                    return thisTime;
                 }
             }
         }
-        return -1;
+        
+        return null;
     }
     
     @Override
@@ -164,11 +166,11 @@ public class Task {
         String s = "";
         
         if (isRepeated) {
-            s = "Task title: " + title + ", start time: " + start + ", end time: " +
-                end + ", interval: " + interval + ". Task is repeated: " + isRepeated + 
+            s = "Task title: " + title + ", start time: " + start.toString() + ", end time: " +
+                end.toString() + ", interval: " + interval + ". Task is repeated: " + isRepeated + 
                 " and is active: " + active + ".";
         } else {
-            s = "Task title: " + title + ", time: " + time + ". Task is repeated: " + 
+            s = "Task title: " + title + ", time: " + time.toString() + ". Task is repeated: " + 
                 isRepeated + " and is active: " + active + ".";
         }
         
@@ -177,17 +179,19 @@ public class Task {
     
     @Override
     public int hashCode() {
-        int constant = 31;
-        int result = 0;
-        int hashCodeTitle = title.hashCode();
+        int result = 31 * title.hashCode();
         
-        result = constant * hashCodeTitle;
-        
-        if (!isRepeated) {
-            result = hashCodeTitle * time * result;
-        } else {
-            result = hashCodeTitle * start * end + interval * result;
+        if (time != null) {
+            result = time.hashCode() + result;
         }
+        if (start != null) {
+            result = start.hashCode() + result;
+        }
+        if (end != null) {
+            result = end.hashCode() + result;
+        }
+        
+        result = result * interval;
         
         return result;
     }
@@ -197,23 +201,31 @@ public class Task {
         if (this == anObject) {
             return true;
         }
-        
         if (anObject == null) {
             return false;
         }
-        
         if (!getClass().equals(anObject.getClass())) {
             return false;
         }
         
         Task anotherTask = (Task)anObject;
         
-        return title.equals(anotherTask.getTitle()) && 
-                time == anotherTask.time &&
-                start == anotherTask.start &&
-                end == anotherTask.end &&
+        return title.equals(anotherTask.title) &&
+                equalDates(time, anotherTask.time) &&
+                equalDates(start, anotherTask.start) &&
+                equalDates(end, anotherTask.end) &&
                 interval == anotherTask.interval &&
                 active == anotherTask.active &&
                 isRepeated == anotherTask.isRepeated;
+    }
+    
+    private boolean equalDates(Date first, Date second) {
+        if (first == null && second == null) {
+            return true;
+        } else if (first == null || second == null) {
+            return false;
+        }
+        
+        return first.equals(second);
     }
 }

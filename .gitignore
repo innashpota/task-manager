@@ -6,5 +6,9 @@
 notepad++/
 lib/
 apache-ant/
+.idea/
+projects/tasks/.idea/
 
 projects/tasks/style_warnings.txt
+projects/tasks/tasks.iml
+.idea/vcs.xml

@@ -1,6 +1,7 @@
 package ua.sumdu.j2se.shpota.tasks;
 
 import java.util.Iterator;
+import java.util.Date;
 
 abstract class TaskList implements Iterable<Task> {
     
@@ -23,17 +24,17 @@ abstract class TaskList implements Iterable<Task> {
      * Metod, shcho povertaye pidmnozhynu zadach, yaki zaplanovani na vykonannya 
      * khocha b raz pislya chasu from i ne piznishe nizh to
      */
-    public TaskList incoming(int from, int to) {
-        if (from < 0 || to < 0) {
+    public TaskList incoming(Date from, Date to) {
+        if (from == null || to == null) {
             throw new IllegalArgumentException("The time from and time to must be non-negative number.");
         }
         
         TaskList destinationList = new ArrayTaskList();
         
         for (Task task : this) {
-            int nextTimeAfter = task.nextTimeAfter(from);
+            Date nextTimeAfter = task.nextTimeAfter(from);
             
-            if (nextTimeAfter != -1 && nextTimeAfter <= to) {
+            if (nextTimeAfter != null && (nextTimeAfter.before(to) || nextTimeAfter.equals(to))) {
                 destinationList.add(task);
             }
         }
