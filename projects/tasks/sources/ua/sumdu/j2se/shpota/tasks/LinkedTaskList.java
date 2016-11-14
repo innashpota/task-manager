@@ -11,7 +11,7 @@ public class LinkedTaskList extends TaskList {
     @Override
     public void add(Task task) {
         if (task == null) {
-            throw new NullPointerException("The task of the node must be specified.");
+            throw new IllegalArgumentException("The task must be specified.");
         }
         
         Node newNode = new Node(task);
@@ -31,7 +31,7 @@ public class LinkedTaskList extends TaskList {
     @Override
     public boolean remove(Task task) {
         if (task == null) {
-            throw new NullPointerException("The task must be specified.");
+            throw new IllegalArgumentException("The task must be specified.");
         }
         
         if (first != null) {
@@ -131,7 +131,6 @@ public class LinkedTaskList extends TaskList {
                 first = lastReturned.getNext();
                 lastReturned = null;
             } else {
-                //System.out.println("+++++++++ " + lastReturned.getCurrentTask().getTitle());
                 previous.setNext(lastReturned.getNext());
                 lastReturned = previous;
             }

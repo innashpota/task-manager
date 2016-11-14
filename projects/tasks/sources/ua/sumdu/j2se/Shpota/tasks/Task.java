@@ -15,8 +15,7 @@ public class Task {
     //Konstruktor neaktyvnoyi, bez povtorennya zadachi
     public Task(String title, Date time) {
         if (title == null || time == null) {
-            throw new IllegalArgumentException("The title and time of the task must be specified." + 
-                        " Time must be non-negative number.");
+            throw new IllegalArgumentException("The title and time of the task can not be null.");
         }
         
         this.title = title;
@@ -28,8 +27,8 @@ public class Task {
     //Konstruktor neaktyvnoyi, povtoryuvanoyi zadachi
     public Task(String title, Date start, Date end, int interval) {
         if (title == null || start == null || end == null || interval <= 0) {
-            throw new IllegalArgumentException("The title, start, end and interval of the task must be specified." + 
-                        " Start, end and interval must be non-negative number.");
+            throw new IllegalArgumentException("The title, start and end can not be null. " +
+                        "The interval must be positive.");
         }
         
         this.title = title;
@@ -43,7 +42,7 @@ public class Task {
     //Vstanovlennya nazvy zadachi
     public void setTitle(String title) {
         if (title == null) {
-            throw new IllegalArgumentException("The title of the task must be specified.");
+            throw new IllegalArgumentException("The title of the task can not be null.");
         }
         
         this.title = title;
@@ -67,52 +66,53 @@ public class Task {
     //Vstanovlennya chasu vykonannya dlya zadach, shcho ne povtoryuyut?sya
     public void setTime(Date time) {
         if (time == null) {
-            throw new IllegalArgumentException("The time of the task must be non-negative number.");
+            throw new IllegalArgumentException("The time of the task can not be null.");
         }
         
         isRepeated = false;
-        start = time;
-        end = time;
+        start = new Date(time.getTime());
+        end = new Date(time.getTime());
         interval = 0;
-        this.time = time;
+        this.time = new Date(time.getTime());
     }
     
     //Zchytuvannya chasu vykonannya dlya zadach, shcho ne povtoryuyut?sya
     public Date getTime() {
         if (isRepeated) {
-            return start;
+            return new Date(start.getTime());
         } else {
-            return time;
+            return new Date(time.getTime());
         }
     }
     
     //Vstanovlennya chasu vykonannya dlya zadach, shcho povtoryuyut?sya
     public void setTime(Date start, Date end, int interval) {
         if (start == null || end == null || interval <= 0) {
-            throw new IllegalArgumentException("Start, end and interval must be non-negative number.");
+            throw new IllegalArgumentException("Start and end can not be null. " +
+                    "The interval must be positive.");
         }
         
         isRepeated = true;
-        time = start;
-        this.start = start;
-        this.end = end;
+        time = new Date(start.getTime());
+        this.start = new Date(start.getTime());
+        this.end = new Date(end.getTime());
         this.interval = interval;
     }
     
     //Zchytuvannya chasu vykonannya dlya zadach, shcho povtoryuyut?sya
     public Date getStartTime() {
         if (isRepeated) {
-            return start;
+            return new Date(start.getTime());
         } else {
-            return time;
+            return new Date(time.getTime());
         }
     }
     
     public Date getEndTime() {
         if (isRepeated) {
-            return end;
+            return new Date(end.getTime());
         } else {
-            return time;
+            return new Date(time.getTime());
         }
     }
     
@@ -132,7 +132,7 @@ public class Task {
     //Povertaye chas nastupnoho vykonannya zadachi pislya vkazanoho chasu
     public Date nextTimeAfter(Date current) {
         if (current == null) {
-            throw new IllegalArgumentException("Current must be non-negative number.");
+            throw new IllegalArgumentException("Current date can not be null.");
         }
         
         if (!active) {
@@ -141,11 +141,11 @@ public class Task {
         
         if (!isRepeated) {
             if (current.before(time)) {
-                return time;
+                return new Date(time.getTime());
             }
         } else {
             if (current.before(start)) {
-                return start;
+                return new Date(start.getTime());
             } else {
                 Date thisTime = this.start;
                 while (thisTime.before(current) || thisTime.equals(current)) {
@@ -153,7 +153,7 @@ public class Task {
                 }
                 
                 if (thisTime.before(end) || thisTime.equals(end)) {
-                    return thisTime;
+                    return new Date(thisTime.getTime());
                 }
             }
         }
@@ -163,14 +163,14 @@ public class Task {
     
     @Override
     public String toString() {
-        String s = "";
+        String s;
         
         if (isRepeated) {
-            s = "Task title: " + title + ", start time: " + start.toString() + ", end time: " +
-                end.toString() + ", interval: " + interval + ". Task is repeated: " + isRepeated + 
+            s = "Task title: " + title + ", start time: " + start + ", end time: " +
+                end + ", interval: " + interval + ". Task is repeated: " + isRepeated +
                 " and is active: " + active + ".";
         } else {
-            s = "Task title: " + title + ", time: " + time.toString() + ". Task is repeated: " + 
+            s = "Task title: " + title + ", time: " + time + ". Task is repeated: " +
                 isRepeated + " and is active: " + active + ".";
         }
         
