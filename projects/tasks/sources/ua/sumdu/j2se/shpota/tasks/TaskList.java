@@ -19,27 +19,6 @@ abstract class TaskList implements Iterable<Task> {
     //Metod, shcho povertaye zadachu, yaka znakhodyt?sya na vkazanomu mistsi
     abstract Task getTask(int index);
     
-    /*
-     * Metod, shcho povertaye pidmnozhynu zadach, yaki zaplanovani na vykonannya 
-     * khocha b raz pislya chasu from i ne piznishe nizh to
-     */
-    public TaskList incoming(int from, int to) {
-        if (from < 0 || to < 0) {
-            throw new IllegalArgumentException("The time from and time to must be non-negative number.");
-        }
-        
-        TaskList destinationList = new ArrayTaskList();
-        
-        for (Task task : this) {
-            int nextTimeAfter = task.nextTimeAfter(from);
-            
-            if (nextTimeAfter != -1 && nextTimeAfter <= to) {
-                destinationList.add(task);
-            }
-        }
-        return destinationList;
-    }
-    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
