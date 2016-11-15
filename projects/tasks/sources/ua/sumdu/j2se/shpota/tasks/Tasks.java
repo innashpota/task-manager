@@ -1,8 +1,9 @@
 package ua.sumdu.j2se.shpota.tasks;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Tasks{
+public class Tasks implements Serializable {
     /*
      * Metod, shcho povertaye pidmnozhynu zadach, yaki zaplanovani na vykonannya
      * khocha b raz pislya chasu from i ne piznishe nizh to
