@@ -1,8 +1,9 @@
 package ua.sumdu.j2se.shpota.tasks;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
-public class ArrayTaskList extends TaskList {
+public class ArrayTaskList extends TaskList implements Serializable{
     
     private Task[] sourceListTask = new Task[0];
     

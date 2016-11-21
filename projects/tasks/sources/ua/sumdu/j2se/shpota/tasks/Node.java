@@ -1,6 +1,8 @@
 package ua.sumdu.j2se.shpota.tasks;
 
-public class Node {
+import java.io.Serializable;
+
+public class Node implements Serializable {
 
     private final Task currentTask;
     private Node next;

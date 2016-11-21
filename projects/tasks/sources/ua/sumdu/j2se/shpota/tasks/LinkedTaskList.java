@@ -1,9 +1,10 @@
 package ua.sumdu.j2se.shpota.tasks;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedTaskList extends TaskList {
+public class LinkedTaskList extends TaskList implements Serializable {
 
     private int size = 0;
     private Node first;
