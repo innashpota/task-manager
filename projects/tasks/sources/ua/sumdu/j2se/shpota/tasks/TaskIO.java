@@ -1,7 +1,11 @@
 package ua.sumdu.j2se.shpota.tasks;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 
 public class TaskIO {
     /*
@@ -15,11 +19,7 @@ public class TaskIO {
             String titleTask = task.getTitle();
             dataOutput.writeInt(titleTask.length());
             dataOutput.writeUTF(titleTask);
-            if (task.isActive()) {
-                dataOutput.writeInt(1);
-            } else {
-                dataOutput.writeInt(0);
-            }
+            dataOutput.writeInt(task.isActive() ? 1 : 0);
             dataOutput.writeInt(task.getRepeatInterval());
             if (task.isRepeated()) {
                 dataOutput.writeLong(task.getStartTime().getTime());
@@ -40,8 +40,8 @@ public class TaskIO {
         for (int i = 0; i < size; i++) {
             int lengthTitle = dataInput.readInt();
             String titleTask = dataInput.readUTF();
-            int activeInt = dataInput.readInt();
-            Task task;
+            int active = dataInput.readInt();
+            Task task = null;
             int repeatInterval = dataInput.readInt();
             if (repeatInterval == 0) {
                 Date time = new Date(dataInput.readLong());
@@ -51,8 +51,7 @@ public class TaskIO {
                 Date end = new Date(dataInput.readLong());
                 task = new Task(titleTask, start, end, repeatInterval);
             }
-            boolean active = (activeInt != 0);
-            task.setActive(active);
+            task.setActive(active != 0);
             tasks.add(task);
         }
     }
@@ -72,6 +71,87 @@ public class TaskIO {
     public static void readBinary(TaskList tasks, File file) throws IOException {
         try (FileInputStream fileInput = new FileInputStream(file)) {
             read(tasks, new ObjectInputStream(fileInput));
+        }
+    }
+
+    /*
+     * The method records the task from the list to flow in text format.
+     */
+    public static void write(TaskList tasks, Writer out) throws IOException {
+        PrintWriter writer = new PrintWriter(out);
+        Iterator<Task> iterator = tasks.iterator();
+        while (iterator.hasNext()){
+            Task task = iterator.next();
+            writer.write("\"" + task.getTitle().replaceAll("\"", "\"\"") + "\"");
+            boolean repeated = task.isRepeated();
+            writer.write(repeated ? " from " : " at ");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss.S]");
+            if (repeated) {
+                writer.write(dateFormat.format(task.getStartTime()));
+                writer.write(" to ");
+                writer.write(dateFormat.format(task.getEndTime()));
+                writer.write(" every ");
+                writer.write("[" + task.getRepeatInterval() + "]");
+            } else {
+                writer.write(dateFormat.format(task.getTime()));
+            }
+            writer.write(task.isActive() ? " active" : " inactive");
+            writer.write(iterator.hasNext() ? ";" : ".");
+            writer.println();
+        }
+        writer.flush();
+    }
+
+    /*
+     * The method reads the tasks of flow in a list.
+     */
+    public static void read(TaskList tasks, Reader in) throws IOException, ParseException {
+        BufferedReader reader = new BufferedReader(in);
+        String str = reader.readLine();
+        while (str != null) {
+            int lastSymbol = str.lastIndexOf("\"");
+            String title = str.substring(1, lastSymbol).replaceAll("\"\"", "\"");
+            String atOrFrom = String.valueOf(str.charAt(lastSymbol + 2));
+
+            Task task = null;
+            int firstBracket = str.indexOf("[", lastSymbol);
+            int endBracket = str.lastIndexOf("]");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss.S]");
+            Date time = dateFormat.parse(str, new ParsePosition(firstBracket));
+
+            if (atOrFrom.equals("a")) {
+                task = new Task(title, time);
+            } else {
+                int secondBracket = str.indexOf("[", firstBracket + 1);
+                Date end = dateFormat.parse(str, new ParsePosition(secondBracket));
+                int startInterval = str.indexOf("[", secondBracket + 1);
+                String intervalStr = str.substring(startInterval + 1, endBracket);
+                int interval = Integer.valueOf(intervalStr);
+                task = new Task(title, time, end, interval);
+            }
+
+            String inactive = str.substring(endBracket + 2, str.length() - 1);
+            task.setActive(!inactive.equals("inactive"));
+            tasks.add(task);
+            str = reader.readLine();
+        }
+    }
+
+    /*
+     * The method records the tasks in the file in text format.
+     */
+    public static void writeText(TaskList tasks, File file) throws IOException {
+        try (PrintWriter fileWriter = new PrintWriter(file)) {
+            write(tasks, new PrintWriter(fileWriter));
+        }
+    }
+
+    /*
+     * The method reads tasks with the file in text form.
+     */
+    public static void readText(TaskList tasks, File file) throws IOException, ParseException {
+        try (FileReader fileReader = new FileReader(file)) {
+            read(tasks, new BufferedReader(fileReader));
         }
     }
 }
