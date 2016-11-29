@@ -75,7 +75,7 @@ public class TaskIO {
     }
 
     /*
-     * The method records the task from the list to flow in text format.
+     * Writes tasks into the file in text format.
      */
     public static void write(TaskList tasks, Writer out) throws IOException {
         PrintWriter writer = new PrintWriter(out);
@@ -108,6 +108,7 @@ public class TaskIO {
     public static void read(TaskList tasks, Reader in) throws IOException, ParseException {
         BufferedReader reader = new BufferedReader(in);
         String str = reader.readLine();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss.S]");
         while (str != null) {
             int lastSymbol = str.lastIndexOf("\"");
             String title = str.substring(1, lastSymbol).replaceAll("\"\"", "\"");
@@ -116,7 +117,6 @@ public class TaskIO {
             Task task = null;
             int firstBracket = str.indexOf("[", lastSymbol);
             int endBracket = str.lastIndexOf("]");
-            SimpleDateFormat dateFormat = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss.S]");
             Date time = dateFormat.parse(str, new ParsePosition(firstBracket));
 
             if (atOrFrom.equals("a")) {
