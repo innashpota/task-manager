@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 public class TaskIO {
 
-    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss.S]");
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss.S]");
 
     /*
      * Writes tasks into the stream in binary format.
@@ -89,13 +89,13 @@ public class TaskIO {
             boolean repeated = task.isRepeated();
             writer.write(repeated ? " from " : " at ");
             if (repeated) {
-                writer.write(dateFormat.format(task.getStartTime()));
+                writer.write(DATE_FORMAT.format(task.getStartTime()));
                 writer.write(" to ");
-                writer.write(dateFormat.format(task.getEndTime()));
+                writer.write(DATE_FORMAT.format(task.getEndTime()));
                 writer.write(" every ");
                 writer.write("[" + task.getRepeatInterval() + "]");
             } else {
-                writer.write(dateFormat.format(task.getTime()));
+                writer.write(DATE_FORMAT.format(task.getTime()));
             }
             writer.write(task.isActive() ? " active" : " inactive");
             writer.write(iterator.hasNext() ? ";" : ".");
@@ -118,13 +118,13 @@ public class TaskIO {
             Task task = null;
             int firstBracket = str.indexOf("[", lastSymbol);
             int endBracket = str.lastIndexOf("]");
-            Date time = dateFormat.parse(str, new ParsePosition(firstBracket));
+            Date time = DATE_FORMAT.parse(str, new ParsePosition(firstBracket));
 
             if (atOrFrom.equals("a")) {
                 task = new Task(title, time);
             } else {
                 int secondBracket = str.indexOf("[", firstBracket + 1);
-                Date end = dateFormat.parse(str, new ParsePosition(secondBracket));
+                Date end = DATE_FORMAT.parse(str, new ParsePosition(secondBracket));
                 int startInterval = str.indexOf("[", secondBracket + 1);
                 String intervalStr = str.substring(startInterval + 1, endBracket);
                 int interval = Integer.valueOf(intervalStr);
