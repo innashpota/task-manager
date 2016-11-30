@@ -8,8 +8,11 @@ import java.util.Date;
 import java.util.Iterator;
 
 public class TaskIO {
+
+    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss.S]");
+
     /*
-     * Metod, shcho zapysuye zadachi iz spysku u potik u binarnomu formati
+     * Writes tasks into the stream in binary format.
      */
     public static void write(TaskList tasks, OutputStream out) throws IOException {
         DataOutputStream dataOutput = new DataOutputStream(out);
@@ -32,7 +35,7 @@ public class TaskIO {
     }
 
     /*
-     * Metod, shcho zchytuye zadachi iz potoku u danyy spysok zadach
+     * Reads tasks from the stream in binary format.
      */
     public static void read(TaskList tasks, InputStream in) throws IOException {
         DataInputStream dataInput = new DataInputStream(in);
@@ -57,7 +60,7 @@ public class TaskIO {
     }
 
     /*
-     * Metod, shcho zapysuye zadachi iz spysku u fayl
+     * Writes tasks into the file in binary format.
      */
     public static void writeBinary(TaskList tasks, File file) throws IOException {
         try (FileOutputStream fileOutput = new FileOutputStream(file)) {
@@ -66,7 +69,7 @@ public class TaskIO {
     }
 
     /*
-     * Metod, shcho zchytuye zadachi iz faylu u spysok zadach
+     * Reads tasks from the file in binary format.
      */
     public static void readBinary(TaskList tasks, File file) throws IOException {
         try (FileInputStream fileInput = new FileInputStream(file)) {
@@ -75,7 +78,7 @@ public class TaskIO {
     }
 
     /*
-     * Writes tasks into the file in text format.
+     * Writes tasks into the stream in text format.
      */
     public static void write(TaskList tasks, Writer out) throws IOException {
         PrintWriter writer = new PrintWriter(out);
@@ -85,7 +88,6 @@ public class TaskIO {
             writer.write("\"" + task.getTitle().replaceAll("\"", "\"\"") + "\"");
             boolean repeated = task.isRepeated();
             writer.write(repeated ? " from " : " at ");
-            SimpleDateFormat dateFormat = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss.S]");
             if (repeated) {
                 writer.write(dateFormat.format(task.getStartTime()));
                 writer.write(" to ");
@@ -103,12 +105,11 @@ public class TaskIO {
     }
 
     /*
-     * The method reads the tasks of flow in a list.
+     * Reads tasks from the stream in text format.
      */
     public static void read(TaskList tasks, Reader in) throws IOException, ParseException {
         BufferedReader reader = new BufferedReader(in);
         String str = reader.readLine();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss.S]");
         while (str != null) {
             int lastSymbol = str.lastIndexOf("\"");
             String title = str.substring(1, lastSymbol).replaceAll("\"\"", "\"");
@@ -138,7 +139,7 @@ public class TaskIO {
     }
 
     /*
-     * The method records the tasks in the file in text format.
+     * Writes tasks into the file in text format.
      */
     public static void writeText(TaskList tasks, File file) throws IOException {
         try (PrintWriter fileWriter = new PrintWriter(file)) {
@@ -147,7 +148,7 @@ public class TaskIO {
     }
 
     /*
-     * The method reads tasks with the file in text form.
+     * Reads tasks from the file in text format.
      */
     public static void readText(TaskList tasks, File file) throws IOException, ParseException {
         try (FileReader fileReader = new FileReader(file)) {
