@@ -33,7 +33,12 @@ $ git status
 ```shell
 $ git push origin some-practic-number-and-name
 ```
-8) D:\programming\java\program.of.course\standard.edition\java.course.dev\nc-labs\projects\tasks\build
+8) Git fetch remote branch
+```shell
+$git fetch && git checkout practic-7-console-utility-assembly-and-testing
+```
+
+9) D:\programming\java\program.of.course\standard.edition\java.course.dev\nc-labs\projects\tasks\build
 
 ```shell
 $ java -cp tasks.jar ua.sumdu.j2se.shpota.tasks.Main
