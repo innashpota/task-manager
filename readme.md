@@ -38,7 +38,12 @@ $ git push origin some-practic-number-and-name
 $git fetch && git checkout practic-7-console-utility-assembly-and-testing
 ```
 
-9) D:\programming\java\program.of.course\standard.edition\java.course.dev\nc-labs\projects\tasks\build
+9) Git added ignored file
+```shell
+$git add -f my_file.txt
+```
+
+10) D:\programming\java\program.of.course\standard.edition\java.course.dev\nc-labs\projects\tasks\build
 
 ```shell
 $ java -cp tasks.jar ua.sumdu.j2se.shpota.tasks.Main
