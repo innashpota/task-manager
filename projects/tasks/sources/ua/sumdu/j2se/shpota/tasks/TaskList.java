@@ -2,7 +2,7 @@ package ua.sumdu.j2se.shpota.tasks;
 
 import java.util.Iterator;
 
-abstract class TaskList implements Iterable<Task> {
+public abstract class TaskList implements Iterable<Task> {
     
     //Metod, shcho dodaye do spysku vkazanu zadachu
     abstract void add(Task task);

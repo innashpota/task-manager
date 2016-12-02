@@ -1,8 +1,9 @@
 package ua.sumdu.j2se.shpota.tasks;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Task {
+public class Task implements Serializable {
     
     private String title;
     private Date time;
