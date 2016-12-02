@@ -3,13 +3,13 @@
 *.war
 *.ear
 
-notepad++/
 lib/
-apache-ant/
+out/
 .idea/
-projects/tasks/.idea/
+doc/
+build/
 
-projects/tasks/style_warnings.txt
-projects/tasks/tasks.iml
+tasks.iml
+style_warnings.txt
 .idea/vcs.xml
-projects/tasks/sources/ua/sumdu/j2se/shpota/tasks/Main.java
+sources/ua/sumdu/j2se/shpota/tasks/Main.java
