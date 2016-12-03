@@ -109,8 +109,9 @@ public class TaskIO {
      */
     public static void read(TaskList tasks, Reader in) throws IOException, ParseException {
         BufferedReader reader = new BufferedReader(in);
-        String str = reader.readLine();
-        while (str != null) {
+        String str = reader.ready() ? reader.readLine() : null;
+        boolean endStr = false;
+        while (str != null && !endStr) {
             int lastSymbol = str.lastIndexOf("\"");
             String title = str.substring(1, lastSymbol).replaceAll("\"\"", "\"");
             String atOrFrom = String.valueOf(str.charAt(lastSymbol + 2));
@@ -134,7 +135,11 @@ public class TaskIO {
             String inactive = str.substring(endBracket + 2, str.length() - 1);
             task.setActive(!inactive.equals("inactive"));
             tasks.add(task);
-            str = reader.readLine();
+            if (str.endsWith(";")) {
+                str = reader.readLine();
+            } else {
+                endStr = true;
+            }
         }
     }
 
