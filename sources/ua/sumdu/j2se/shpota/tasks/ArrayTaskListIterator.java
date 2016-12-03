@@ -31,7 +31,7 @@ public class ArrayTaskListIterator implements Iterator<Task> {
     
     @Override
     public void remove() {
-        if (position < 0) {
+        if (position < 0 || !currentElementRemove) {
             throw new IllegalStateException("The next method has not yet been called, " + 
                     "or the remove method has already been called after the last call to the next method");
         }
@@ -41,5 +41,6 @@ public class ArrayTaskListIterator implements Iterator<Task> {
         }
         
         position--;
+        currentElementRemove = false;
     }
 }

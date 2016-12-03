@@ -58,6 +58,22 @@ public class TaskIOTest
         assertEquals(tasks, tasks2);
     }
 
+    @Test
+    public void testTextEmptyList() throws Exception
+    {
+        PipedReader in = new PipedReader();
+        PipedWriter out = new PipedWriter(in);
+
+        TaskList tasks = new ArrayTaskList(),
+                tasks2 = new ArrayTaskList();
+
+        TaskIO.write(tasks, out);
+
+        TaskIO.read(tasks2, in);
+
+        assertEquals(tasks, tasks2);
+    }
+
     @Test(expected = Exception.class)
     public void testTextError() throws Exception
     {
