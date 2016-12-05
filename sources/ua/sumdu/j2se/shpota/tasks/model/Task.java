@@ -1,4 +1,4 @@
-package ua.sumdu.j2se.shpota.tasks;
+package ua.sumdu.j2se.shpota.tasks.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -27,9 +27,14 @@ public class Task implements Serializable {
     
     //Konstruktor neaktyvnoyi, povtoryuvanoyi zadachi
     public Task(String title, Date start, Date end, int interval) {
-        if (title == null || start == null || end == null || interval <= 0) {
-            throw new IllegalArgumentException("The title, start and end can not be null. " +
-                        "The interval must be positive.");
+        if (title == null || start == null || end == null) {
+            throw new IllegalArgumentException("Title, Start and end can not be null.");
+        }
+        if (interval <= 0) {
+            throw new IllegalArgumentException("The interval must be positive.");
+        }
+        if (start.after(end)) {
+            throw new IllegalArgumentException("Start must be before end.");
         }
         
         this.title = title;
@@ -88,9 +93,14 @@ public class Task implements Serializable {
     
     //Vstanovlennya chasu vykonannya dlya zadach, shcho povtoryuyut?sya
     public void setTime(Date start, Date end, int interval) {
-        if (start == null || end == null || interval <= 0) {
-            throw new IllegalArgumentException("Start and end can not be null. " +
-                    "The interval must be positive.");
+        if (start == null || end == null) {
+            throw new IllegalArgumentException("Start and end can not be null.");
+        }
+        if (interval <= 0) {
+            throw new IllegalArgumentException("The interval must be positive.");
+        }
+        if (start.after(end)) {
+            throw new IllegalArgumentException("Start must be before end.");
         }
         
         isRepeated = true;

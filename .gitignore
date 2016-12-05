@@ -9,7 +9,7 @@ out/
 doc/
 build/
 
-tasks.iml
+nc-labs.iml
 style_warnings.txt
 .idea/vcs.xml
 sources/ua/sumdu/j2se/shpota/tasks/Main.java

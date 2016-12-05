@@ -1,9 +1,9 @@
-package ua.sumdu.j2se.shpota.tasks;
+package ua.sumdu.j2se.shpota.tasks.model;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static ua.sumdu.j2se.shpota.tasks.Utils.*;
+import static ua.sumdu.j2se.shpota.tasks.model.Utils.*;
 
 public class TaskTest {
 

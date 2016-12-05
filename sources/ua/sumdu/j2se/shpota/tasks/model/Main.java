@@ -1,4 +1,4 @@
-package ua.sumdu.j2se.shpota.tasks;
+package ua.sumdu.j2se.shpota.tasks.model;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.Iterator;
  * Created by User on 12/2/2016.
  */
 public class Main {
-    public static void main(String[] var0) throws IOException, ParseException {
+    public static void main(String[] var0) throws IOException, ParseException, InterruptedException {
         Date time = new Date();
         Date start = new Date(time.getTime() - 24*60*60*1000);
         Date end = new Date(time.getTime() + 24*60*60*1000);

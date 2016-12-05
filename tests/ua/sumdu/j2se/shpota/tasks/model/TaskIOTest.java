@@ -1,11 +1,11 @@
-package ua.sumdu.j2se.shpota.tasks;
+package ua.sumdu.j2se.shpota.tasks.model;
 
 import org.junit.Test;
 
 import java.io.*;
 
 import static org.junit.Assert.assertEquals;
-import static ua.sumdu.j2se.shpota.tasks.Utils.*;
+import static ua.sumdu.j2se.shpota.tasks.model.Utils.*;
 
 public class TaskIOTest
 {
@@ -50,6 +50,22 @@ public class TaskIOTest
         tasks.add(t);
         tasks.add(new Task("C", TODAY, TOMORROW, HOUR));
         tasks.add(new Task("D", YESTERDAY));
+
+        TaskIO.write(tasks, out);
+
+        TaskIO.read(tasks2, in);
+
+        assertEquals(tasks, tasks2);
+    }
+
+    @Test
+    public void testTextEmptyList() throws Exception
+    {
+        PipedReader in = new PipedReader();
+        PipedWriter out = new PipedWriter(in);
+
+        TaskList tasks = new ArrayTaskList(),
+                tasks2 = new ArrayTaskList();
 
         TaskIO.write(tasks, out);
 

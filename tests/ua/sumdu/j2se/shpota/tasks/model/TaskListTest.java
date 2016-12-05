@@ -1,12 +1,12 @@
-package ua.sumdu.j2se.shpota.tasks;
+package ua.sumdu.j2se.shpota.tasks.model;
 
 import org.junit.Test;
 
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
-import static ua.sumdu.j2se.shpota.tasks.Utils.assertContains;
-import static ua.sumdu.j2se.shpota.tasks.Utils.task;
+import static ua.sumdu.j2se.shpota.tasks.model.Utils.assertContains;
+import static ua.sumdu.j2se.shpota.tasks.model.Utils.task;
 
 public class TaskListTest extends AbstractTaskListTest {
 

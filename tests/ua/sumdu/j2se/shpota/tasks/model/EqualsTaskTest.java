@@ -1,4 +1,4 @@
-package ua.sumdu.j2se.shpota.tasks;
+package ua.sumdu.j2se.shpota.tasks.model;
 
 import org.junit.Test;
 
@@ -6,7 +6,7 @@ import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static ua.sumdu.j2se.shpota.tasks.Utils.*;
+import static ua.sumdu.j2se.shpota.tasks.model.Utils.*;
 
 public class EqualsTaskTest {
 

@@ -1,4 +1,4 @@
-package ua.sumdu.j2se.shpota.tasks;
+package ua.sumdu.j2se.shpota.tasks.model;
 
 import org.junit.Test;
 
@@ -7,7 +7,7 @@ import java.util.Iterator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static ua.sumdu.j2se.shpota.tasks.Utils.task;
+import static ua.sumdu.j2se.shpota.tasks.model.Utils.task;
 
 public class EqualsListTest extends AbstractTaskListTest {
 
