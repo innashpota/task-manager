@@ -20,6 +20,6 @@ public class SwingCalendarView extends JFrame {
         buttonsPanel.add(addNewTask);
 
         add(buttonsPanel, BorderLayout.SOUTH);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }

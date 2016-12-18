@@ -1,21 +1,25 @@
-package ua.sumdu.j2se.shpota.tasks.model;
+package ua.sumdu.j2se.shpota.tasks.view;
+
+import ua.sumdu.j2se.shpota.tasks.model.Task;
+import ua.sumdu.j2se.shpota.tasks.model.TasksModel;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TaskModel implements TableModel{
+public class TaskTable implements TableModel {
     private Set<TableModelListener> listeners = new HashSet<>();
-    private TaskList list;
+    private TasksModel model;
 
-    public TaskModel(TaskList list) {
-        this.list = list;
+    public TaskTable(TasksModel model) {
+        super();
+        this.model = model;
     }
 
     @Override
     public int getRowCount() {
-        return list.size();
+        return model.getSize();
     }
 
     @Override
@@ -25,11 +29,10 @@ public class TaskModel implements TableModel{
 
     @Override
     public String getColumnName(int columnIndex) {
-        switch (columnIndex) {
-            case 0:
-                return "Title";
-            case 1:
-                return "Time";
+        if (columnIndex == 0) {
+            return "Title";
+        } else if (columnIndex == 1) {
+            return "Time";
         }
         return null;
     }
@@ -46,12 +49,12 @@ public class TaskModel implements TableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Task task = list.getTask(rowIndex);
-        switch (columnIndex) {
-            case 0:
-                return task.getTitle();
-            case 1:
-                return task.isRepeated() ? ("" + task.getStartTime() + " - " + task.getEndTime()) : task.getTime();
+        Task task = model.getTask(rowIndex);
+        if (columnIndex == 0) {
+            return task.getTitle();
+        } else if (columnIndex == 1) {
+            return task.isRepeated() ? ("" + task.getStartTime() + " - " +
+                    task.getEndTime()) : task.getTime();
         }
         return null;
     }
@@ -68,6 +71,6 @@ public class TaskModel implements TableModel{
 
     @Override
     public void removeTableModelListener(TableModelListener l) {
-
+        listeners.remove(l);
     }
 }

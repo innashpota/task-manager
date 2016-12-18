@@ -8,11 +8,8 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Iterator;
 
-/**
- * Created by User on 12/2/2016.
- */
 public class Main {
-    public static void main(String[] var0) throws IOException, ParseException, InterruptedException {
+    public static void main(String[] var0) throws IOException, InterruptedException {
         Date time = new Date();
         Date start = new Date(time.getTime() - 24*60*60*1000);
         Date end = new Date(time.getTime() + 24*60*60*1000);
@@ -32,7 +29,7 @@ public class Main {
         PipedInputStream inputStream = new PipedInputStream();
         new PipedOutputStream(inputStream);
 
-        File file = new File("write.txt");
+        File file = new File("tasksList.txt");
         TaskIO.writeText(list, file);
 
         LinkedTaskList result = new LinkedTaskList();

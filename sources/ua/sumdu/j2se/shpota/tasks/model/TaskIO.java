@@ -1,15 +1,26 @@
 package ua.sumdu.j2se.shpota.tasks.model;
 
 import java.io.*;
-import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 
 public class TaskIO {
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss.S]");
+    private static final String FILE_NAME = "./tasksList.txt";
 
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss.S]");
+    public static TasksModel loadTaskModel() throws IOException {
+        File file = new File("./tasksList.txt");
+
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
+        TaskList list = new ArrayTaskList();
+        readText(list, file);
+        return new TasksModel(list);
+    }
 
     /*
      * Writes tasks into the stream in binary format.
@@ -83,7 +94,7 @@ public class TaskIO {
     public static void write(TaskList tasks, Writer out) throws IOException {
         PrintWriter writer = new PrintWriter(out);
         Iterator<Task> iterator = tasks.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Task task = iterator.next();
             writer.write("\"" + task.getTitle().replaceAll("\"", "\"\"") + "\"");
             boolean repeated = task.isRepeated();
@@ -107,7 +118,7 @@ public class TaskIO {
     /*
      * Reads tasks from the stream in text format.
      */
-    public static void read(TaskList tasks, Reader in) throws IOException, ParseException {
+    public static void read(TaskList tasks, Reader in) throws IOException {
         BufferedReader reader = new BufferedReader(in);
         String str = reader.ready() ? reader.readLine() : null;
         boolean endStr = false;
@@ -155,7 +166,7 @@ public class TaskIO {
     /*
      * Reads tasks from the file in text format.
      */
-    public static void readText(TaskList tasks, File file) throws IOException, ParseException {
+    public static void readText(TaskList tasks, File file) throws IOException {
         try (FileReader fileReader = new FileReader(file)) {
             read(tasks, new BufferedReader(fileReader));
         }
