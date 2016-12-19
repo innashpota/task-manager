@@ -13,4 +13,4 @@ nc-labs.iml
 style_warnings.txt
 .idea/vcs.xml
 tasksList.txt
-sources/ua/sumdu/j2se/shpota/tasks/Main.java
+sources/ua/sumdu/j2se/shpota/tasks/model/Main.java
