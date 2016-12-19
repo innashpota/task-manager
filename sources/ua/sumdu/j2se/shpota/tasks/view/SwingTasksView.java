@@ -7,6 +7,9 @@ import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
+import static javax.swing.SpringLayout.NORTH;
+import static javax.swing.SpringLayout.SOUTH;
+
 public class SwingTasksView implements Observer {
     private JFrame frame;
     private JTable table;
@@ -27,36 +30,33 @@ public class SwingTasksView implements Observer {
     }
 
     public void createFrame () {
-        frame = new JFrame("TasksList");
-        frame.setSize(new Dimension(600, 400));
+        frame = new JFrame("Task manager");
+        frame.setSize(new Dimension(400, 500));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
     }
 
     public void createMenu () {
         JMenuBar menuBar = new JMenuBar();
-        JMenu menu = new JMenu("Menu");
+        JMenu menu = new JMenu("Calendar");
         JMenuItem removeItem = new JMenuItem("Calendar");
-        JMenuItem addTaskItem = new JMenuItem("Add new task");
         menu.add(removeItem);
         removeItem.addActionListener(actionEvent -> {
             SwingCalendarView listTask = new SwingCalendarView();
             listTask.setVisible(true);
             listTask.pack();
         });
-        menu.addSeparator();
-        menu.add(addTaskItem);
         menuBar.add(menu);
 
         frame.setJMenuBar(menuBar);
     }
 
     public void createLabel () {
-        JLabel countLabel = new JLabel("Tasks list", SwingConstants.CENTER);
+        JLabel countLabel = new JLabel("All tasks", SwingConstants.CENTER);
         countLabel.setForeground(Color.BLUE);
         countLabel.setFont(new Font("Serif", Font.PLAIN, 18));
 
-        frame.add(countLabel, BorderLayout.NORTH);
+        frame.add(countLabel, NORTH);
     }
 
     public void createTable (TasksModel model) {
@@ -73,14 +73,18 @@ public class SwingTasksView implements Observer {
         JButton removeButton = new JButton("Remove");
         removeButton.addActionListener(actionEvent -> {
             int selectedRow = table.getSelectedRow();
-            model.remove(selectedRow);
+            if (selectedRow != -1) {
+                model.remove(selectedRow);
+            }
         });
 
         JButton infoButton = new JButton("Information");
+        JButton addNewTaskButton = new JButton("Add task");
 
         buttonsPanel.add(removeButton);
         buttonsPanel.add(infoButton);
-        frame.add(buttonsPanel, BorderLayout.SOUTH);
+        buttonsPanel.add(addNewTaskButton);
+        frame.add(buttonsPanel, SOUTH);
     }
 
     @Override
