@@ -8,10 +8,10 @@ import java.util.Iterator;
 
 public class TaskIO {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss.S]");
-    private static final String FILE_NAME = "./tasksList.txt";
+    private static final String FILE_NAME = "./task-storage.txt";
 
     public static TasksModel loadTaskModel() throws IOException {
-        File file = new File("./tasksList.txt");
+        File file = new File(FILE_NAME);
 
         if (!file.exists()) {
             file.createNewFile();

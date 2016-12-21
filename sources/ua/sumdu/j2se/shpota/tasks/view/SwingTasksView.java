@@ -7,20 +7,24 @@ import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
+import static java.awt.Color.*;
+import static java.awt.Font.*;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import static javax.swing.SpringLayout.NORTH;
 import static javax.swing.SpringLayout.SOUTH;
+import static javax.swing.SwingConstants.*;
 
 public class SwingTasksView implements Observer {
+    private TasksModel model;
     private JFrame frame;
     private JTable table;
-    private TasksModel model;
 
     public SwingTasksView(TasksModel model) {
         this.model = model;
         model.observable().addObserver(this);
     }
 
-    public void createSwingView () {
+    public void createSwingView() {
         createFrame();
         createMenu();
         createLabel();
@@ -29,37 +33,37 @@ public class SwingTasksView implements Observer {
         showView();
     }
 
-    public void createFrame () {
+    private void createFrame() {
         frame = new JFrame("Task manager");
         frame.setSize(new Dimension(400, 500));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
     }
 
-    public void createMenu () {
+    private void createMenu() {
         JMenuBar menuBar = new JMenuBar();
-        JMenu menu = new JMenu("Calendar");
-        JMenuItem removeItem = new JMenuItem("Calendar");
-        menu.add(removeItem);
-        removeItem.addActionListener(actionEvent -> {
-            SwingCalendarView listTask = new SwingCalendarView();
-            listTask.setVisible(true);
-            listTask.pack();
+        JMenu calendar = new JMenu("Calendar");
+        JMenuItem calendarItem = new JMenuItem("Calendar");
+        calendar.add(calendarItem);
+        calendarItem.addActionListener(actionEvent -> {
+            SwingCalendarView calendarView = new SwingCalendarView();
+            calendarView.setVisible(true);
+            calendarView.pack();
         });
-        menuBar.add(menu);
+        menuBar.add(calendar);
 
         frame.setJMenuBar(menuBar);
     }
 
-    public void createLabel () {
-        JLabel countLabel = new JLabel("All tasks", SwingConstants.CENTER);
-        countLabel.setForeground(Color.BLUE);
-        countLabel.setFont(new Font("Serif", Font.PLAIN, 18));
+    private void createLabel() {
+        JLabel countLabel = new JLabel("All tasks", CENTER);
+        countLabel.setForeground(BLUE);
+        countLabel.setFont(new Font("Serif", PLAIN, 18));
 
         frame.add(countLabel, NORTH);
     }
 
-    public void createTable (TasksModel model) {
+    private void createTable(TasksModel model) {
         JTable table = new JTable(new TaskTable(model));
         this.table = table;
         JScrollPane tableScrollPane = new JScrollPane(table);
@@ -67,7 +71,7 @@ public class SwingTasksView implements Observer {
         frame.add(tableScrollPane);
     }
 
-    public void createButtonsPanel() {
+    private void createButtonsPanel() {
         JPanel buttonsPanel = new JPanel(new FlowLayout());
 
         JButton removeButton = new JButton("Remove");
@@ -78,27 +82,33 @@ public class SwingTasksView implements Observer {
             }
         });
 
-        JButton infoButton = new JButton("Information");
         JButton addNewTaskButton = new JButton("Add task");
+        addNewTaskButton.addActionListener(actionEvent -> {
+            SwingAddTaskView addTaskView = new SwingAddTaskView(model);
+            addTaskView.createAddTaskView();
+        });
+
+        JButton infoButton = new JButton("Information");
 
         buttonsPanel.add(removeButton);
-        buttonsPanel.add(infoButton);
         buttonsPanel.add(addNewTaskButton);
+        buttonsPanel.add(infoButton);
+
         frame.add(buttonsPanel, SOUTH);
+    }
+
+    private void showView() {
+        frame.setVisible(true);
+        frame.pack();
+    }
+
+    private void close() {
+        frame.setVisible(false);
+        frame.dispose();
     }
 
     @Override
     public void update(Observable o, Object arg) {
         table.updateUI();
-    }
-
-    public void showView () {
-        frame.setVisible(true);
-        frame.pack();
-    }
-
-    public void close () {
-        frame.setVisible(false);
-        frame.dispose();
     }
 }

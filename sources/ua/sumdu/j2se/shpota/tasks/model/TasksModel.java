@@ -7,6 +7,7 @@ public class TasksModel extends Observable {
 
     public TasksModel (TaskList list) {
         this.list = list;
+
         super.setChanged();
         super.notifyObservers();
     }
@@ -17,6 +18,13 @@ public class TasksModel extends Observable {
 
     public Task getTask (int index) {
         return list.getTask(index);
+    }
+
+    public void add(Task task) {
+        list.add(task);
+
+        super.setChanged();
+        super.notifyObservers();
     }
 
     public boolean remove (int index) {

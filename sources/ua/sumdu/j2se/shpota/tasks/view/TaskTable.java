@@ -3,13 +3,9 @@ package ua.sumdu.j2se.shpota.tasks.view;
 import ua.sumdu.j2se.shpota.tasks.model.Task;
 import ua.sumdu.j2se.shpota.tasks.model.TasksModel;
 
-import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
-import java.util.HashSet;
-import java.util.Set;
+import javax.swing.table.AbstractTableModel;
 
-public class TaskTable implements TableModel {
-    private Set<TableModelListener> listeners = new HashSet<>();
+public class TaskTable extends AbstractTableModel {
     private TasksModel model;
 
     public TaskTable(TasksModel model) {
@@ -38,16 +34,6 @@ public class TaskTable implements TableModel {
     }
 
     @Override
-    public Class<?> getColumnClass(int columnIndex) {
-        return String.class;
-    }
-
-    @Override
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return false;
-    }
-
-    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Task task = model.getTask(rowIndex);
         if (columnIndex == 0) {
@@ -57,20 +43,5 @@ public class TaskTable implements TableModel {
                     task.getEndTime()) : task.getTime();
         }
         return null;
-    }
-
-    @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-
-    }
-
-    @Override
-    public void addTableModelListener(TableModelListener l) {
-        listeners.add(l);
-    }
-
-    @Override
-    public void removeTableModelListener(TableModelListener l) {
-        listeners.remove(l);
     }
 }

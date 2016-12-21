@@ -7,19 +7,13 @@ import ua.sumdu.j2se.shpota.tasks.view.SwingTasksView;
 import java.io.IOException;
 
 public class TaskController {
-    private TasksModel model;
-
     public static void main (String[] args) throws IOException {
         TasksModel model = TaskIO.loadTaskModel();
-        TaskController controller = new TaskController(model);
-        controller.createView();
+
+        createView(model);
     }
 
-    public TaskController (TasksModel model) {
-        this.model = model;
-    }
-
-    public void createView () {
+    private static void createView (TasksModel model) {
         SwingTasksView view = new SwingTasksView(model);
         view.createSwingView();
     }
