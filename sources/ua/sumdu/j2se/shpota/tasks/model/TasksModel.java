@@ -27,12 +27,11 @@ public class TasksModel extends Observable {
         super.notifyObservers();
     }
 
-    public boolean remove (int index) {
-        boolean remove = list.remove(getTask(index));
+    public void remove (int index) {
+        list.remove(getTask(index));
 
         super.setChanged();
         super.notifyObservers();
-        return remove;
     }
 
     public Observable observable() {

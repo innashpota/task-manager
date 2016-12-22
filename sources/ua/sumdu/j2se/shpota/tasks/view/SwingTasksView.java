@@ -9,10 +9,10 @@ import java.util.Observer;
 
 import static java.awt.Color.*;
 import static java.awt.Font.*;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import static javax.swing.SpringLayout.NORTH;
 import static javax.swing.SpringLayout.SOUTH;
 import static javax.swing.SwingConstants.*;
+import static javax.swing.WindowConstants.*;
 
 public class SwingTasksView implements Observer {
     private TasksModel model;
@@ -100,11 +100,6 @@ public class SwingTasksView implements Observer {
     private void showView() {
         frame.setVisible(true);
         frame.pack();
-    }
-
-    private void close() {
-        frame.setVisible(false);
-        frame.dispose();
     }
 
     @Override

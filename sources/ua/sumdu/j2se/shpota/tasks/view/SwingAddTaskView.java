@@ -6,17 +6,15 @@ import ua.sumdu.j2se.shpota.tasks.model.TasksModel;
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import static javax.swing.SpringLayout.SOUTH;
 import static javax.swing.SwingConstants.LEFT;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class SwingAddTaskView implements Observer {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -48,68 +46,33 @@ public class SwingAddTaskView implements Observer {
     private void createFrame() {
         frame = new JFrame("Add task");
         frame.setSize(new Dimension(400, 500));
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         frame.setLocationRelativeTo(null);
     }
 
     private void createFieldsBox() {
         Box fieldsTaskBox = Box.createVerticalBox();
 
-        Box titleBox = Box.createHorizontalBox();
-        titleBox.add(new JLabel("Title:"));
-        titleBox.add(Box.createHorizontalStrut(19));
-        title = new JTextField(30);
-        titleBox.add(title);
+        Box titleBox = getTitleBox();
+        Box checkBox = getCheckBox();
 
-        Box checkBox = Box.createVerticalBox();
-        isRepeated = new JCheckBox("Repeated:");
-        isRepeated.setHorizontalTextPosition(LEFT);
-
-        active = new JCheckBox("Active:");
-        active.setHorizontalTextPosition(LEFT);
-        checkBox.add(isRepeated);
-        checkBox.add(active);
-
-        Box timeBox = Box.createHorizontalBox();
-        timeBox.add(new JLabel("Time:"));
-        timeBox.add(Box.createHorizontalStrut(18));
         timeFormat = createDataJFormat();
-        timeBox.add(timeFormat);
+        timeFormat.setEditable(true);
+        Box timeBox = getTimeBox(timeFormat, "Time:", 18);
 
-        Box startBox = Box.createHorizontalBox();
-        startBox.add(new JLabel("Start:"));
-        startBox.add(Box.createHorizontalStrut(18));
         startFormat = createDataJFormat();
         startFormat.setEditable(false);
-        startBox.add(startFormat);
+        Box startBox = getTimeBox(startFormat, "Start:", 18);
 
-        Box endBox = Box.createHorizontalBox();
-        endBox.add(new JLabel("End:"));
-        endBox.add(Box.createHorizontalStrut(13 + 12));
         endFormat = createDataJFormat();
         endFormat.setEditable(false);
-        endBox.add(endFormat);
+        Box endBox = getTimeBox(endFormat, "End:", 25);
 
-        Box intervalBox = Box.createHorizontalBox();
-        intervalBox.add(new JLabel("Interval:"));
-        intervalBox.add(Box.createHorizontalStrut(4));
         intervalFormat = createIntervalJFormat();
         intervalFormat.setEditable(false);
-        intervalBox.add(intervalFormat);
+        Box intervalBox = getTimeBox(intervalFormat, "Interval:", 4);
 
-        isRepeated.addItemListener(itemEvent -> {
-            if (isRepeated.isSelected()) {
-                timeFormat.setEditable(false);
-                startFormat.setEditable(true);
-                endFormat.setEditable(true);
-                intervalFormat.setEditable(true);
-            } else {
-                timeFormat.setEditable(true);
-                startFormat.setEditable(false);
-                endFormat.setEditable(false);
-                intervalFormat.setEditable(false);
-            }
-        });
+        isRepeated.addItemListener(itemEvent -> isRepeatedStateChanged());
 
         fieldsTaskBox.add(titleBox);
         fieldsTaskBox.add(checkBox);
@@ -120,17 +83,61 @@ public class SwingAddTaskView implements Observer {
         frame.add(fieldsTaskBox);
     }
 
+    private void isRepeatedStateChanged() {
+        if (isRepeated.isSelected()) {
+            timeFormat.setEditable(false);
+            startFormat.setEditable(true);
+            endFormat.setEditable(true);
+            intervalFormat.setEditable(true);
+        } else {
+            timeFormat.setEditable(true);
+            startFormat.setEditable(false);
+            endFormat.setEditable(false);
+            intervalFormat.setEditable(false);
+        }
+    }
+
+    private Box getTitleBox() {
+        Box titleBox = Box.createHorizontalBox();
+        titleBox.add(new JLabel("Title:"));
+        titleBox.add(Box.createHorizontalStrut(20));
+        title = new JTextField(30);
+        titleBox.add(title);
+
+        return titleBox;
+    }
+
+    private Box getCheckBox() {
+        Box checkBox = Box.createVerticalBox();
+        isRepeated = new JCheckBox("Repeated:");
+        isRepeated.setHorizontalTextPosition(LEFT);
+        active = new JCheckBox("Active:");
+        active.setHorizontalTextPosition(LEFT);
+        checkBox.add(isRepeated);
+        checkBox.add(active);
+
+        return checkBox;
+    }
+
+    private static Box getTimeBox(JFormattedTextField format, String title, int width) {
+        Box timeBox = Box.createHorizontalBox();
+        timeBox.add(new JLabel(title));
+        timeBox.add(Box.createHorizontalStrut(width));
+        timeBox.add(format);
+
+        return timeBox;
+    }
+
     private JFormattedTextField createIntervalJFormat() {
-        intervalFormat = new JFormattedTextField();
-        intervalFormat.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
-                    e.consume();
-                }
-            }
-        });
+        MaskFormatter formatter = null;
+        intervalFormat = new JFormattedTextField(formatter);
+        try {
+            formatter = new MaskFormatter("#########");
+        } catch (ParseException e) {
+            showWarningMessage("Interval must not be empty");
+        }
+        formatter.setPlaceholderCharacter('_');
+        formatter.setValidCharacters("0123456789");
 
         return intervalFormat;
     }
@@ -140,13 +147,15 @@ public class SwingAddTaskView implements Observer {
         MaskFormatter dateMask = null;
         try {
             dateMask = new MaskFormatter("####-##-## ##:##");
+            dateMask.setPlaceholderCharacter('_');
         } catch (ParseException e) {
-            e.printStackTrace();
+            showWarningMessage("Please follow the next pattern while entering date: yyyy-MM-dd HH:mm");
         }
 
         if (dateMask != null) {
             dateMask.install(jFormat);
         }
+        jFormat.setToolTipText("Example: 2016-12-19 03:12");
 
         return jFormat;
     }
@@ -157,29 +166,29 @@ public class SwingAddTaskView implements Observer {
         JButton save = new JButton("Save");
         save.addActionListener(actionEvent -> {
             String titleStr = title.getText();
-            Date time;
-            Date start;
-            Date end;
-            int interval = Integer.parseInt(intervalFormat.getText());
-
-            if (isRepeated.isSelected()) {
-                try {
-                    start = DATE_FORMAT.parse(startFormat.getText());
-                    end = DATE_FORMAT.parse(endFormat.getText());
-                    task = new Task(titleStr, start, end, interval);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                try {
-                    time = DATE_FORMAT.parse(timeFormat.getText());
-                    task = new Task(titleStr, time);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+            if (titleStr.equals("")) {
+                showWarningMessage("Title must not be empty");
+                return;
             }
 
-            model.add(task);
+            if (isRepeated.isSelected()) {
+                int interval = getInterval();
+                Date start = getDate(startFormat);
+                Date end = getDate(endFormat);
+
+                if (interval != 0 && start != null && end != null) {
+                    task = new Task(titleStr, start, end, interval);
+                    task.setActive(active.isSelected());
+                    model.add(task);
+                }
+            } else {
+                Date time = getDate(timeFormat);
+                if (time != null) {
+                    task = new Task(titleStr, time);
+                    task.setActive(active.isSelected());
+                    model.add(task);
+                }
+            }
         });
 
         buttonsPanel.add(save);
@@ -187,24 +196,46 @@ public class SwingAddTaskView implements Observer {
         frame.add(buttonsPanel, SOUTH);
     }
 
+    private Date getDate(JFormattedTextField format) {
+        Date date = null;
+        try {
+            date = DATE_FORMAT.parse(format.getText());
+        } catch (ParseException e) {
+            showWarningMessage("Please follow the next pattern while entering date: yyyy-MM-dd HH:mm");
+        }
+        return date;
+    }
+
+    private int getInterval() {
+        int interval = 0;
+        String intervalStr = intervalFormat.getText();
+        int indexSymbol = intervalStr.indexOf("_");
+        char firstSymbol = intervalStr.charAt(0);
+        if (indexSymbol != -1 && firstSymbol != '_') {
+            interval = Integer.parseInt(intervalStr.substring(0, indexSymbol));
+        } else if (firstSymbol != '_') {
+            interval = Integer.parseInt(intervalStr);
+        }
+
+        if (interval == 0) {
+            showWarningMessage("Interval must not be empty");
+        }
+
+        return interval;
+    }
+
+    private static void showWarningMessage(String message) {
+        JOptionPane.showMessageDialog(null,
+                message, "Warning", JOptionPane.WARNING_MESSAGE);
+    }
+
     private void showView() {
         frame.setVisible(true);
         frame.pack();
     }
 
-    public void close() {
-        frame.setVisible(false);
-        frame.dispose();
-    }
-
     @Override
     public void update(Observable o, Object arg) {
-        title.setText("");
-        timeFormat.setValue(null);
-        startFormat.setValue(null);
-        endFormat.setValue(null);
-        active.setSelected(false);
-        isRepeated.setSelected(false);
-        intervalFormat.setText("");
+        frame.setVisible(false);
     }
 }
