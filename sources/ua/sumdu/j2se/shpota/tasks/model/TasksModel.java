@@ -12,6 +12,10 @@ public class TasksModel extends Observable {
         super.notifyObservers();
     }
 
+    public TaskList getList() {
+        return list;
+    }
+
     public int getSize () {
         return list.size();
     }

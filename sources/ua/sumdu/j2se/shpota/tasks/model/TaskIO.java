@@ -11,15 +11,26 @@ public class TaskIO {
     private static final String FILE_NAME = "./task-storage.txt";
 
     public static TasksModel loadTaskModel() throws IOException {
+        File file = getFile();
+
+        TaskList list = new ArrayTaskList();
+        readText(list, file);
+        return new TasksModel(list);
+    }
+
+   public static void storeTaskModel(TaskList list) throws IOException {
+        File file = getFile();
+
+        writeText(list, file);
+    }
+
+    private static File getFile() throws IOException {
         File file = new File(FILE_NAME);
 
         if (!file.exists()) {
             file.createNewFile();
         }
-
-        TaskList list = new ArrayTaskList();
-        readText(list, file);
-        return new TasksModel(list);
+        return file;
     }
 
     /*

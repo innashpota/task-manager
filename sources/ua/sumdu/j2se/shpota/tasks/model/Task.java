@@ -84,11 +84,14 @@ public class Task implements Serializable {
     
     //Zchytuvannya chasu vykonannya dlya zadach, shcho ne povtoryuyut?sya
     public Date getTime() {
+        Date time;
         if (isRepeated) {
-            return new Date(start.getTime());
+            time = new Date(start.getTime());
         } else {
-            return new Date(time.getTime());
+            time = new Date(this.time.getTime());
         }
+
+        return time;
     }
     
     //Vstanovlennya chasu vykonannya dlya zadach, shcho povtoryuyut?sya
@@ -112,27 +115,33 @@ public class Task implements Serializable {
     
     //Zchytuvannya chasu vykonannya dlya zadach, shcho povtoryuyut?sya
     public Date getStartTime() {
+        Date start;
         if (isRepeated) {
-            return new Date(start.getTime());
+            start = new Date(this.start.getTime());
         } else {
-            return new Date(time.getTime());
+            start = new Date(time.getTime());
         }
+        return start;
     }
     
     public Date getEndTime() {
+        Date end;
         if (isRepeated) {
-            return new Date(end.getTime());
+            end = new Date(this.end.getTime());
         } else {
-            return new Date(time.getTime());
+            end = new Date(time.getTime());
         }
+        return end;
     }
     
     public int getRepeatInterval() {
+        int interval;
         if (isRepeated) {
-            return interval;
+            interval = this.interval;
         } else {
-            return 0;
+            interval = 0;
         }
+        return interval;
     }
     
     //Perevirka povtoryuvanosti zadachi
@@ -145,37 +154,34 @@ public class Task implements Serializable {
         if (current == null) {
             throw new IllegalArgumentException("Current date can not be null.");
         }
-        
-        if (!active) {
-            return null;
-        }
-        
-        if (!isRepeated) {
-            if (current.before(time)) {
-                return new Date(time.getTime());
-            }
-        } else {
-            if (current.before(start)) {
-                return new Date(start.getTime());
+        Date nextTimeAfter = null;
+        if (active) {
+            if (!isRepeated) {
+                if (current.before(time)) {
+                    nextTimeAfter = new Date(time.getTime());
+                }
             } else {
-                Date thisTime = this.start;
-                while (thisTime.before(current) || thisTime.equals(current)) {
-                    thisTime = new Date(thisTime.getTime() + interval * 1000);
-                }
-                
-                if (thisTime.before(end) || thisTime.equals(end)) {
-                    return new Date(thisTime.getTime());
+                if (current.before(start)) {
+                    nextTimeAfter = new Date(start.getTime());
+                } else {
+                    Date thisTime = this.start;
+                    while (thisTime.before(current) || thisTime.equals(current)) {
+                        thisTime = new Date(thisTime.getTime() + interval * 1000);
+                    }
+
+                    if (thisTime.before(end) || thisTime.equals(end)) {
+                        nextTimeAfter = new Date(thisTime.getTime());
+                    }
                 }
             }
         }
         
-        return null;
+        return nextTimeAfter;
     }
     
     @Override
     public String toString() {
         String s;
-        
         if (isRepeated) {
             s = "Task title: " + title + ", start time: " + start + ", end time: " +
                 end + ", interval: " + interval + ". Task is repeated: " + isRepeated +
@@ -191,7 +197,6 @@ public class Task implements Serializable {
     @Override
     public int hashCode() {
         int result = 31 * title.hashCode();
-        
         if (time != null) {
             result = time.hashCode() + result;
         }
