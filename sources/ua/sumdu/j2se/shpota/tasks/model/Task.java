@@ -12,8 +12,12 @@ public class Task implements Serializable {
     private int interval;
     private boolean active;
     private boolean isRepeated;
-    
-    //Konstruktor neaktyvnoyi, bez povtorennya zadachi
+
+    /**
+     * Constructor inactive, with no repeat task
+     * @param title
+     * @param time
+     */
     public Task(String title, Date time) {
         if (title == null || time == null) {
             throw new IllegalArgumentException("The title and time of the task can not be null.");
@@ -25,7 +29,13 @@ public class Task implements Serializable {
         isRepeated = false;    
     }
     
-    //Konstruktor neaktyvnoyi, povtoryuvanoyi zadachi
+    /**
+     * Constructor inactive, with no repeat task
+     * @param title
+     * @param start
+     * @param end
+     * @param interval
+     */
     public Task(String title, Date start, Date end, int interval) {
         if (title == null || start == null || end == null) {
             throw new IllegalArgumentException("Title, Start and end can not be null.");
@@ -45,7 +55,10 @@ public class Task implements Serializable {
         isRepeated = true;
     }
     
-    //Vstanovlennya nazvy zadachi
+    /**
+     * Setting name task
+     * @param title
+     */
     public void setTitle(String title) {
         if (title == null) {
             throw new IllegalArgumentException("The title of the task can not be null.");
@@ -54,22 +67,34 @@ public class Task implements Serializable {
         this.title = title;
     }
     
-    //Zchytuvannya nazvy zadachi
+    /**
+     * Getting name task
+     * @return title
+     */
     public String getTitle() {
         return title;
     }
-    
-    //Vstanovlennya stanu aktyvnosti zadachi
+
+    /**
+     * Setting the state of activity of task
+     * @param active
+     */
     public void setActive(boolean active) {
         this.active = active;
     }
     
-    //Zchytuvannya stanu aktyvnosti zadachi
+    /**
+     * Getting the state of activity of task
+     * @return active
+     */
     public boolean isActive() {
         return active;
     }
-    
-    //Vstanovlennya chasu vykonannya dlya zadach, shcho ne povtoryuyut?sya
+
+    /**
+     * Setting time for not repeated tasks
+     * @param time
+     */
     public void setTime(Date time) {
         if (time == null) {
             throw new IllegalArgumentException("The time of the task can not be null.");
@@ -81,8 +106,11 @@ public class Task implements Serializable {
         interval = 0;
         this.time = new Date(time.getTime());
     }
-    
-    //Zchytuvannya chasu vykonannya dlya zadach, shcho ne povtoryuyut?sya
+
+    /**
+     * Getting time for not repeated tasks
+     * @return time
+     */
     public Date getTime() {
         Date time;
         if (isRepeated) {
@@ -93,8 +121,13 @@ public class Task implements Serializable {
 
         return time;
     }
-    
-    //Vstanovlennya chasu vykonannya dlya zadach, shcho povtoryuyut?sya
+
+    /**
+     * Setting the time for repeated tasks
+     * @param start
+     * @param end
+     * @param interval
+     */
     public void setTime(Date start, Date end, int interval) {
         if (start == null || end == null) {
             throw new IllegalArgumentException("Start and end can not be null.");
@@ -112,8 +145,11 @@ public class Task implements Serializable {
         this.end = new Date(end.getTime());
         this.interval = interval;
     }
-    
-    //Zchytuvannya chasu vykonannya dlya zadach, shcho povtoryuyut?sya
+
+    /**
+     * Getting the start time for repeated tasks
+     * @return start
+     */
     public Date getStartTime() {
         Date start;
         if (isRepeated) {
@@ -123,7 +159,11 @@ public class Task implements Serializable {
         }
         return start;
     }
-    
+
+    /**
+     * Getting the end time for repeated tasks
+     * @return end
+     */
     public Date getEndTime() {
         Date end;
         if (isRepeated) {
@@ -133,7 +173,11 @@ public class Task implements Serializable {
         }
         return end;
     }
-    
+
+    /**
+     * Getting the interval for repeated tasks
+     * @return interval
+     */
     public int getRepeatInterval() {
         int interval;
         if (isRepeated) {
@@ -143,13 +187,20 @@ public class Task implements Serializable {
         }
         return interval;
     }
-    
-    //Perevirka povtoryuvanosti zadachi
+
+    /**
+     * Check is repeated task
+     * @return isRepeated
+     */
     public boolean isRepeated() {
         return isRepeated;
     }
-    
-    //Povertaye chas nastupnoho vykonannya zadachi pislya vkazanoho chasu
+
+    /**
+     * Returns the next time the task after a specified time
+     * @param current
+     * @return
+     */
     public Date nextTimeAfter(Date current) {
         if (current == null) {
             throw new IllegalArgumentException("Current date can not be null.");

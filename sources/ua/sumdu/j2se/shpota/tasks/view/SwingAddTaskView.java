@@ -1,6 +1,5 @@
 package ua.sumdu.j2se.shpota.tasks.view;
 
-import ua.sumdu.j2se.shpota.tasks.model.Task;
 import ua.sumdu.j2se.shpota.tasks.model.TasksModel;
 
 import javax.swing.*;
@@ -22,7 +21,6 @@ public class SwingAddTaskView implements Observer {
     private TasksModel model;
     private JFrame frame;
 
-    private Task task;
     private JTextField title;
     private JFormattedTextField timeFormat;
     private JFormattedTextField startFormat;
@@ -177,16 +175,12 @@ public class SwingAddTaskView implements Observer {
                 Date end = getDate(endFormat);
 
                 if (interval != 0 && start != null && end != null) {
-                    task = new Task(titleStr, start, end, interval);
-                    task.setActive(active.isSelected());
-                    model.add(task);
+                    model.addTask(titleStr, start, end, interval, active.isSelected());
                 }
             } else {
                 Date time = getDate(timeFormat);
                 if (time != null) {
-                    task = new Task(titleStr, time);
-                    task.setActive(active.isSelected());
-                    model.add(task);
+                    model.addTask(titleStr, time, active.isSelected());
                 }
             }
         });

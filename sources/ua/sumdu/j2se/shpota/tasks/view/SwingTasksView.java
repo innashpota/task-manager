@@ -1,6 +1,5 @@
 package ua.sumdu.j2se.shpota.tasks.view;
 
-import ua.sumdu.j2se.shpota.tasks.controller.MyWindowAdapter;
 import ua.sumdu.j2se.shpota.tasks.model.TasksModel;
 
 import javax.swing.*;
@@ -38,7 +37,7 @@ public class SwingTasksView implements Observer {
         frame = new JFrame("Task manager");
         frame.setSize(new Dimension(300, 400));
         frame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        frame.addWindowListener(new MyWindowAdapter(model));
+        frame.addWindowListener(new DialogWindowAdapter());
         frame.setLocationRelativeTo(null);
     }
 

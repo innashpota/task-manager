@@ -8,7 +8,11 @@ public class ArrayTaskListIterator implements Iterator<Task> {
     private ArrayTaskList current;
     private int position = -1;
     private boolean currentElementRemove = false;
-    
+
+    /**
+     * Constructor ArrayTaskListIterator
+     * @param current
+     */
     public ArrayTaskListIterator(ArrayTaskList current) {
         this.current = current;
     }

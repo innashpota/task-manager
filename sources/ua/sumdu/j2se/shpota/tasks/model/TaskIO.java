@@ -10,15 +10,15 @@ public class TaskIO {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss.S]");
     private static final String FILE_NAME = "./task-storage.txt";
 
-    public static TasksModel loadTaskModel() throws IOException {
+    public static TaskList loadFile() throws IOException {
         File file = getFile();
 
         TaskList list = new ArrayTaskList();
         readText(list, file);
-        return new TasksModel(list);
+        return list;
     }
 
-   public static void storeTaskModel(TaskList list) throws IOException {
+   public static void storeFile(TaskList list) throws IOException {
         File file = getFile();
 
         writeText(list, file);

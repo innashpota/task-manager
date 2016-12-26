@@ -3,20 +3,32 @@ package ua.sumdu.j2se.shpota.tasks.model;
 import java.util.Iterator;
 
 public abstract class TaskList implements Iterable<Task> {
-    
-    //Metod, shcho dodaye do spysku vkazanu zadachu
+
+    /**
+     * The method, which adds to the list of task
+     * @param task
+     */
     abstract void add(Task task);
-    
-    /*
-     * Metod, shcho vydalyaye zadachu iz spysku i povertaye istynu, 
-     * yakshcho taka zadacha bula u spysku
+
+    /**
+     * The method removes the task from the list and
+     * returns true if this task was listed
+     * @param task
+     * @return true/false
      */
     abstract boolean remove(Task task);
-    
-    //Metod, shcho povertaye kil?kist? zadach u spysku
+
+    /**
+     * The method returns the number of tasks in the list
+     * @return list.length
+     */
     abstract int size();
-    
-    //Metod, shcho povertaye zadachu, yaka znakhodyt?sya na vkazanomu mistsi
+
+    /**
+     * The method returns a task that is at the specified location
+     * @param index
+     * @return task
+     */
     abstract Task getTask(int index);
     
     @Override

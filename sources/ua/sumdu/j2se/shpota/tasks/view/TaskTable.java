@@ -49,12 +49,9 @@ public class TaskTable extends AbstractTableModel {
             columnValue = task.getTitle();
         } else if (columnIndex == 1) {
             columnValue = task.isRepeated() ?
-                    (
                     DATE_FORMAT.format(task.getStartTime()) + " - " +
-                            DATE_FORMAT.format(task.getEndTime()))
-                    :
-                    DATE_FORMAT.format(task.getTime()
-                    );
+                            DATE_FORMAT.format(task.getEndTime())
+                    : DATE_FORMAT.format(task.getTime());
         } else {
             throw new IllegalArgumentException("Table has only two columns.");
         }

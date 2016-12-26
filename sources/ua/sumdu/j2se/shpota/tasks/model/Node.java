@@ -6,8 +6,11 @@ public class Node implements Serializable {
 
     private final Task currentTask;
     private Node next;
-    
-    //Konstruktor uzla
+
+    /**
+     * Constructor node
+     * @param task
+     */
     public Node(Task task) {
         if (task == null) {
             throw new NullPointerException("The task of the node must be specified.");
@@ -15,18 +18,27 @@ public class Node implements Serializable {
         
         currentTask = task;
     }
-    
-    //Zchytuvannya zadachi
+
+    /**
+     * Getting task
+     * @return
+     */
     public Task getCurrentTask() {
         return currentTask;
     }
-    
-    //Vstanovlennya nastupnoyi zadachi
+
+    /**
+     * Setting next task
+     * @param next
+     */
     public void setNext(Node next) {
         this.next = next;
     }
-    
-    //Zchytuvannya nastupnoyi zadachi
+
+    /**
+     * Getting next task
+     * @return next
+     */
     public Node getNext() {
         return next;
     }
