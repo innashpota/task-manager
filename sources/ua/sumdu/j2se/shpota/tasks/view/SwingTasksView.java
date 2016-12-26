@@ -46,11 +46,6 @@ public class SwingTasksView implements Observer {
         JMenu calendar = new JMenu("Calendar");
         JMenuItem calendarItem = new JMenuItem("Calendar");
         calendar.add(calendarItem);
-        calendarItem.addActionListener(actionEvent -> {
-            SwingCalendarView calendarView = new SwingCalendarView();
-            calendarView.setVisible(true);
-            calendarView.pack();
-        });
         menuBar.add(calendar);
 
         frame.setJMenuBar(menuBar);
@@ -68,6 +63,7 @@ public class SwingTasksView implements Observer {
         JTable table = new JTable(new TaskTable(model));
         this.table = table;
         JScrollPane tableScrollPane = new JScrollPane(table);
+        tableScrollPane.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         frame.add(tableScrollPane);
     }

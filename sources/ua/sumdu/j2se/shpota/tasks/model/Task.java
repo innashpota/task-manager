@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Task implements Serializable {
-    
+
     private String title;
     private Date time;
     private Date start;
@@ -14,7 +14,8 @@ public class Task implements Serializable {
     private boolean isRepeated;
 
     /**
-     * Constructor inactive, with no repeat task
+     * Constructs non repeated inactive task
+     *
      * @param title
      * @param time
      */
@@ -22,15 +23,16 @@ public class Task implements Serializable {
         if (title == null || time == null) {
             throw new IllegalArgumentException("The title and time of the task can not be null.");
         }
-        
+
         this.title = title;
         this.time = time;
         active = false;
-        isRepeated = false;    
+        isRepeated = false;
     }
-    
+
     /**
-     * Constructor inactive, with no repeat task
+     * Constructs repeated inactive task
+     *
      * @param title
      * @param start
      * @param end
@@ -46,7 +48,7 @@ public class Task implements Serializable {
         if (start.after(end)) {
             throw new IllegalArgumentException("Start must be before end.");
         }
-        
+
         this.title = title;
         this.start = start;
         this.end = end;
@@ -54,21 +56,23 @@ public class Task implements Serializable {
         active = false;
         isRepeated = true;
     }
-    
+
     /**
-     * Setting name task
+     * Sets task name
+     *
      * @param title
      */
     public void setTitle(String title) {
         if (title == null) {
             throw new IllegalArgumentException("The title of the task can not be null.");
         }
-        
+
         this.title = title;
     }
-    
+
     /**
-     * Getting name task
+     * Gets task name
+     *
      * @return title
      */
     public String getTitle() {
@@ -76,15 +80,17 @@ public class Task implements Serializable {
     }
 
     /**
-     * Setting the state of activity of task
+     * Sets task the state of activity
+     *
      * @param active
      */
     public void setActive(boolean active) {
         this.active = active;
     }
-    
+
     /**
-     * Getting the state of activity of task
+     * Gets task the state of activity
+     *
      * @return active
      */
     public boolean isActive() {
@@ -92,14 +98,15 @@ public class Task implements Serializable {
     }
 
     /**
-     * Setting time for not repeated tasks
+     * Sets non repeated task the time
+     *
      * @param time
      */
     public void setTime(Date time) {
         if (time == null) {
             throw new IllegalArgumentException("The time of the task can not be null.");
         }
-        
+
         isRepeated = false;
         start = new Date(time.getTime());
         end = new Date(time.getTime());
@@ -108,7 +115,8 @@ public class Task implements Serializable {
     }
 
     /**
-     * Getting time for not repeated tasks
+     * Gets non repeated task the time
+     *
      * @return time
      */
     public Date getTime() {
@@ -123,7 +131,8 @@ public class Task implements Serializable {
     }
 
     /**
-     * Setting the time for repeated tasks
+     * Sets repeated task the time and interval
+     *
      * @param start
      * @param end
      * @param interval
@@ -138,7 +147,7 @@ public class Task implements Serializable {
         if (start.after(end)) {
             throw new IllegalArgumentException("Start must be before end.");
         }
-        
+
         isRepeated = true;
         time = new Date(start.getTime());
         this.start = new Date(start.getTime());
@@ -147,7 +156,8 @@ public class Task implements Serializable {
     }
 
     /**
-     * Getting the start time for repeated tasks
+     * Gets repeated task the start time
+     *
      * @return start
      */
     public Date getStartTime() {
@@ -161,7 +171,8 @@ public class Task implements Serializable {
     }
 
     /**
-     * Getting the end time for repeated tasks
+     * Gets repeated task the end time
+     *
      * @return end
      */
     public Date getEndTime() {
@@ -175,7 +186,8 @@ public class Task implements Serializable {
     }
 
     /**
-     * Getting the interval for repeated tasks
+     * Gets repeated task the interval
+     *
      * @return interval
      */
     public int getRepeatInterval() {
@@ -189,7 +201,8 @@ public class Task implements Serializable {
     }
 
     /**
-     * Check is repeated task
+     * Check task is repeated
+     *
      * @return isRepeated
      */
     public boolean isRepeated() {
@@ -198,8 +211,9 @@ public class Task implements Serializable {
 
     /**
      * Returns the next time the task after a specified time
+     *
      * @param current
-     * @return
+     * @return nextTimeAfter
      */
     public Date nextTimeAfter(Date current) {
         if (current == null) {
@@ -226,25 +240,25 @@ public class Task implements Serializable {
                 }
             }
         }
-        
+
         return nextTimeAfter;
     }
-    
+
     @Override
     public String toString() {
         String s;
         if (isRepeated) {
             s = "Task title: " + title + ", start time: " + start + ", end time: " +
-                end + ", interval: " + interval + ". Task is repeated: " + isRepeated +
-                " and is active: " + active + ".";
+                    end + ", interval: " + interval + ". Task is repeated: " + isRepeated +
+                    " and is active: " + active + ".";
         } else {
             s = "Task title: " + title + ", time: " + time + ". Task is repeated: " +
-                isRepeated + " and is active: " + active + ".";
+                    isRepeated + " and is active: " + active + ".";
         }
-        
+
         return s;
     }
-    
+
     @Override
     public int hashCode() {
         int result = 31 * title.hashCode();
@@ -257,12 +271,12 @@ public class Task implements Serializable {
         if (end != null) {
             result = end.hashCode() + result;
         }
-        
+
         result = result * interval;
-        
+
         return result;
     }
-    
+
     @Override
     public boolean equals(Object anObject) {
         if (this == anObject) {
@@ -274,9 +288,9 @@ public class Task implements Serializable {
         if (!getClass().equals(anObject.getClass())) {
             return false;
         }
-        
-        Task anotherTask = (Task)anObject;
-        
+
+        Task anotherTask = (Task) anObject;
+
         return title.equals(anotherTask.title) &&
                 equalDates(time, anotherTask.time) &&
                 equalDates(start, anotherTask.start) &&
@@ -285,14 +299,14 @@ public class Task implements Serializable {
                 active == anotherTask.active &&
                 isRepeated == anotherTask.isRepeated;
     }
-    
+
     private boolean equalDates(Date first, Date second) {
         if (first == null && second == null) {
             return true;
         } else if (first == null || second == null) {
             return false;
         }
-        
+
         return first.equals(second);
     }
 }

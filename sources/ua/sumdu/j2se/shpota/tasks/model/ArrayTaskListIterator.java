@@ -10,7 +10,7 @@ public class ArrayTaskListIterator implements Iterator<Task> {
     private boolean currentElementRemove = false;
 
     /**
-     * Constructor ArrayTaskListIterator
+     * Constructs ArrayTaskListIterator
      * @param current
      */
     public ArrayTaskListIterator(ArrayTaskList current) {

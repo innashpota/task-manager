@@ -3,13 +3,19 @@ package ua.sumdu.j2se.shpota.tasks.model;
 import java.util.*;
 
 public class Tasks {
-    /*
-     * Metod, shcho povertaye pidmnozhynu zadach, yaki zaplanovani na vykonannya
-     * khocha b raz pislya chasu from i ne piznishe nizh to
+
+    /**
+     * Returns a subset of the tasks that are scheduled to perform
+     * at least once after from time and no later than to.
+     *
+     * @param tasks
+     * @param from
+     * @param to
+     * @return destinationList
      */
     public static Iterable<Task> incoming(Iterable<Task> tasks, Date from, Date to) {
         if (tasks == null || from == null || to == null) {
-            throw new IllegalArgumentException ("Task, start date and end date can not be null");
+            throw new IllegalArgumentException("Task, start date and end date can not be null");
         }
 
         TaskList destinationList = new ArrayTaskList();
@@ -24,15 +30,17 @@ public class Tasks {
         return destinationList;
     }
 
-    /*
-     * Metod, yakyy bude buduvaty kalendar zadach na zadanyy period - tablytsyu,
-     * de kozhniy dati vidpovidaye mnozhyna zadach, shcho mayut? buty vykonani v
-     * tsey chas, pry chomu odna zadacha mozhe zustrichatys? vidpovidno do dekil?kokh
-     * dat, yakshcho vona maye buty vykonana dekil?ka raziv za vkazanyy period.
+    /**
+     * Building calendar tasks in a given period.
+     *
+     * @param tasks
+     * @param start
+     * @param end
+     * @return calendar
      */
     public static SortedMap<Date, Set<Task>> calendar(Iterable<Task> tasks, Date start, Date end) {
         if (tasks == null || start == null || end == null) {
-            throw new NullPointerException ("Task, start date and end date can not be null");
+            throw new NullPointerException("Task, start date and end date can not be null");
         }
 
         SortedMap<Date, Set<Task>> calendar = new TreeMap<>();

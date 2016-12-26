@@ -8,27 +8,30 @@ public class Node implements Serializable {
     private Node next;
 
     /**
-     * Constructor node
+     * Constructs node
+     *
      * @param task
      */
     public Node(Task task) {
         if (task == null) {
             throw new NullPointerException("The task of the node must be specified.");
         }
-        
+
         currentTask = task;
     }
 
     /**
-     * Getting task
-     * @return
+     * Gets task
+     *
+     * @return currentTask
      */
     public Task getCurrentTask() {
         return currentTask;
     }
 
     /**
-     * Setting next task
+     * Sets next task
+     *
      * @param next
      */
     public void setNext(Node next) {
@@ -36,7 +39,8 @@ public class Node implements Serializable {
     }
 
     /**
-     * Getting next task
+     * Gets next task
+     *
      * @return next
      */
     public Node getNext() {
