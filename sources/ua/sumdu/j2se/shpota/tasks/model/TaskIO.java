@@ -44,10 +44,14 @@ public class TaskIO {
         return file;
     }
 
-    /*
+    /**
      * Writes tasks into the stream in binary format.
+     *
+     * @param tasks
+     * @param out
+     * @throws IOException
      */
-    private static void write(TaskList tasks, OutputStream out) throws IOException {
+    public static void write(TaskList tasks, OutputStream out) throws IOException {
         DataOutputStream dataOutput = new DataOutputStream(out);
         dataOutput.writeInt(tasks.size());
 
@@ -67,10 +71,14 @@ public class TaskIO {
         dataOutput.flush();
     }
 
-    /*
+    /**
      * Reads tasks from the stream in binary format.
+     *
+     * @param tasks
+     * @param in
+     * @throws IOException
      */
-    private static void read(TaskList tasks, InputStream in) throws IOException {
+    public static void read(TaskList tasks, InputStream in) throws IOException {
         DataInputStream dataInput = new DataInputStream(in);
         int size = dataInput.readInt();
         for (int i = 0; i < size; i++) {
@@ -92,28 +100,40 @@ public class TaskIO {
         }
     }
 
-    /*
+    /**
      * Writes tasks into the file in binary format.
+     *
+     * @param tasks
+     * @param file
+     * @throws IOException
      */
-    private static void writeBinary(TaskList tasks, File file) throws IOException {
+    public static void writeBinary(TaskList tasks, File file) throws IOException {
         try (FileOutputStream fileOutput = new FileOutputStream(file)) {
             write(tasks, new ObjectOutputStream(fileOutput));
         }
     }
 
-    /*
+    /**
      * Reads tasks from the file in binary format.
+     *
+     * @param tasks
+     * @param file
+     * @throws IOException
      */
-    private static void readBinary(TaskList tasks, File file) throws IOException {
+    public static void readBinary(TaskList tasks, File file) throws IOException {
         try (FileInputStream fileInput = new FileInputStream(file)) {
             read(tasks, new ObjectInputStream(fileInput));
         }
     }
 
-    /*
+    /**
      * Writes tasks into the stream in text format.
+     *
+     * @param tasks
+     * @param out
+     * @throws IOException
      */
-    private static void write(TaskList tasks, Writer out) throws IOException {
+    public static void write(TaskList tasks, Writer out) throws IOException {
         PrintWriter writer = new PrintWriter(out);
         Iterator<Task> iterator = tasks.iterator();
         while (iterator.hasNext()) {
@@ -137,10 +157,14 @@ public class TaskIO {
         writer.flush();
     }
 
-    /*
+    /**
      * Reads tasks from the stream in text format.
+     *
+     * @param tasks
+     * @param in
+     * @throws IOException
      */
-    private static void read(TaskList tasks, Reader in) throws IOException {
+    public static void read(TaskList tasks, Reader in) throws IOException {
         BufferedReader reader = new BufferedReader(in);
         String str = reader.ready() ? reader.readLine() : null;
         boolean endStr = false;
@@ -176,19 +200,27 @@ public class TaskIO {
         }
     }
 
-    /*
+    /**
      * Writes tasks into the file in text format.
+     *
+     * @param tasks
+     * @param file
+     * @throws IOException
      */
-    private static void writeText(TaskList tasks, File file) throws IOException {
+    public static void writeText(TaskList tasks, File file) throws IOException {
         try (PrintWriter fileWriter = new PrintWriter(file)) {
             write(tasks, new PrintWriter(fileWriter));
         }
     }
 
-    /*
+    /**
      * Reads tasks from the file in text format.
+     *
+     * @param tasks
+     * @param file
+     * @throws IOException
      */
-    private static void readText(TaskList tasks, File file) throws IOException {
+    public static void readText(TaskList tasks, File file) throws IOException {
         try (FileReader fileReader = new FileReader(file)) {
             read(tasks, new BufferedReader(fileReader));
         }
