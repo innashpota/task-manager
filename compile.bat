@@ -1,5 +1,5 @@
 javac -d ./build/classes ^
--sourcepath sources sources/ua/sumdu/j2se/shpota/tasks/controller/TaskController.java ^
-sources/ua/sumdu/j2se/shpota/tasks/model/*.java ^
-sources/ua/sumdu/j2se/shpota/tasks/view/*.java
+-sourcepath sources sources/ua/shpota/tasks/controller/TaskController.java ^
+sources/ua/shpota/tasks/model/*.java ^
+sources/ua/shpota/tasks/view/*.java
 pause

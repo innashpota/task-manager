@@ -1,1 +1,1 @@
-java -cp build/tasks.jar ua.sumdu.j2se.shpota.tasks.controller.TaskController
+java -cp build/tasks.jar ua.shpota.tasks.controller.TaskController
