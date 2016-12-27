@@ -1,1 +1,0 @@
-javadoc -d ./doc -sourcepath sources sources/ua/sumdu/j2se/shpota/tasks/*.java

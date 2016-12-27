@@ -1,2 +1,1 @@
-java -cp build/tasks.jar ua.sumdu.j2se.shpota.tasks.model.Main
-pause
+java -cp build/tasks.jar ua.sumdu.j2se.shpota.tasks.controller.TaskController
