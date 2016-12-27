@@ -1,18 +1,55 @@
 package ua.sumdu.j2se.shpota.tasks.model;
 
 import java.io.*;
-import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 
 public class TaskIO {
+    private static final SimpleDateFormat DATE_FORMAT =
+            new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss.S]");
+    private static final String FILE_NAME = "./task-storage.txt";
 
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss.S]");
+    /**
+     * Loads list of task from text file
+     *
+     * @return list
+     * @throws IOException
+     */
+    public static TaskList loadFile() throws IOException {
+        File file = getFile();
+        TaskList list = new ArrayTaskList();
+        readText(list, file);
+        return list;
+    }
 
-    /*
+    /**
+     * Stores list of task into text file
+     *
+     * @param list
+     * @throws IOException
+     */
+    public static void storeFile(TaskList list) throws IOException {
+        File file = getFile();
+        writeText(list, file);
+    }
+
+    private static File getFile() throws IOException {
+        File file = new File(FILE_NAME);
+
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        return file;
+    }
+
+    /**
      * Writes tasks into the stream in binary format.
+     *
+     * @param tasks
+     * @param out
+     * @throws IOException
      */
     public static void write(TaskList tasks, OutputStream out) throws IOException {
         DataOutputStream dataOutput = new DataOutputStream(out);
@@ -34,8 +71,12 @@ public class TaskIO {
         dataOutput.flush();
     }
 
-    /*
+    /**
      * Reads tasks from the stream in binary format.
+     *
+     * @param tasks
+     * @param in
+     * @throws IOException
      */
     public static void read(TaskList tasks, InputStream in) throws IOException {
         DataInputStream dataInput = new DataInputStream(in);
@@ -59,8 +100,12 @@ public class TaskIO {
         }
     }
 
-    /*
+    /**
      * Writes tasks into the file in binary format.
+     *
+     * @param tasks
+     * @param file
+     * @throws IOException
      */
     public static void writeBinary(TaskList tasks, File file) throws IOException {
         try (FileOutputStream fileOutput = new FileOutputStream(file)) {
@@ -68,8 +113,12 @@ public class TaskIO {
         }
     }
 
-    /*
+    /**
      * Reads tasks from the file in binary format.
+     *
+     * @param tasks
+     * @param file
+     * @throws IOException
      */
     public static void readBinary(TaskList tasks, File file) throws IOException {
         try (FileInputStream fileInput = new FileInputStream(file)) {
@@ -77,13 +126,17 @@ public class TaskIO {
         }
     }
 
-    /*
+    /**
      * Writes tasks into the stream in text format.
+     *
+     * @param tasks
+     * @param out
+     * @throws IOException
      */
     public static void write(TaskList tasks, Writer out) throws IOException {
         PrintWriter writer = new PrintWriter(out);
         Iterator<Task> iterator = tasks.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Task task = iterator.next();
             writer.write("\"" + task.getTitle().replaceAll("\"", "\"\"") + "\"");
             boolean repeated = task.isRepeated();
@@ -104,10 +157,14 @@ public class TaskIO {
         writer.flush();
     }
 
-    /*
+    /**
      * Reads tasks from the stream in text format.
+     *
+     * @param tasks
+     * @param in
+     * @throws IOException
      */
-    public static void read(TaskList tasks, Reader in) throws IOException, ParseException {
+    public static void read(TaskList tasks, Reader in) throws IOException {
         BufferedReader reader = new BufferedReader(in);
         String str = reader.ready() ? reader.readLine() : null;
         boolean endStr = false;
@@ -143,8 +200,12 @@ public class TaskIO {
         }
     }
 
-    /*
+    /**
      * Writes tasks into the file in text format.
+     *
+     * @param tasks
+     * @param file
+     * @throws IOException
      */
     public static void writeText(TaskList tasks, File file) throws IOException {
         try (PrintWriter fileWriter = new PrintWriter(file)) {
@@ -152,10 +213,14 @@ public class TaskIO {
         }
     }
 
-    /*
+    /**
      * Reads tasks from the file in text format.
+     *
+     * @param tasks
+     * @param file
+     * @throws IOException
      */
-    public static void readText(TaskList tasks, File file) throws IOException, ParseException {
+    public static void readText(TaskList tasks, File file) throws IOException {
         try (FileReader fileReader = new FileReader(file)) {
             read(tasks, new BufferedReader(fileReader));
         }

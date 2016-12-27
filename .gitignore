@@ -12,4 +12,6 @@ build/
 nc-labs.iml
 style_warnings.txt
 .idea/vcs.xml
-sources/ua/sumdu/j2se/shpota/tasks/Main.java
+tasksList.txt
+task-storage.txt
+sources/ua/sumdu/j2se/shpota/tasks/model/Main.java
