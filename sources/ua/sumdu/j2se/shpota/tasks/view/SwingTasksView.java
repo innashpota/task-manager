@@ -14,16 +14,29 @@ import static javax.swing.SpringLayout.SOUTH;
 import static javax.swing.SwingConstants.*;
 import static javax.swing.WindowConstants.*;
 
+/**
+ * Tasks view.
+ * Connected only with the model.
+ * Implements {@link Observer}
+ */
 public class SwingTasksView implements Observer {
     private TasksModel model;
     private JFrame frame;
     private JTable table;
 
+    /**
+     * Constructs tasks view
+     *
+     * @param model
+     */
     public SwingTasksView(TasksModel model) {
         this.model = model;
         model.observable().addObserver(this);
     }
 
+    /**
+     * Creates tasks view
+     */
     public void createSwingView() {
         createFrame();
         createMenu();

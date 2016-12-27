@@ -8,6 +8,10 @@ import java.io.IOException;
 
 import static javax.swing.JOptionPane.*;
 
+/**
+ * Option dialog in windows closing
+ * Class extends {@link WindowAdapter}
+ */
 public class DialogWindowAdapter extends WindowAdapter {
 
     @Override

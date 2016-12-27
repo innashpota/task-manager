@@ -15,6 +15,11 @@ import static javax.swing.SpringLayout.SOUTH;
 import static javax.swing.SwingConstants.LEFT;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
+/**
+ * Add tasks view.
+ * Connected only with the model.
+ * Implements {@link Observer}
+ */
 public class SwingAddTaskView implements Observer {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
@@ -29,11 +34,19 @@ public class SwingAddTaskView implements Observer {
     private JCheckBox isRepeated;
     private JFormattedTextField intervalFormat;
 
+    /**
+     * Constructs add tasks view.
+     *
+     * @param model
+     */
     public SwingAddTaskView(TasksModel model) {
         this.model = model;
         model.observable().addObserver(this);
     }
 
+    /**
+     * Creates add tasks view.
+     */
     public void createAddTaskView() {
         createFrame();
         createFieldsBox();

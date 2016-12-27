@@ -6,12 +6,21 @@ import ua.sumdu.j2se.shpota.tasks.model.TasksModel;
 import javax.swing.table.AbstractTableModel;
 import java.text.SimpleDateFormat;
 
+/**
+ * Table.
+ * Class extends {@link AbstractTableModel}
+ */
 public class TaskTable extends AbstractTableModel {
     private static final SimpleDateFormat DATE_FORMAT =
             new SimpleDateFormat("[yyyy-MM-dd HH:mm]");
 
     private TasksModel model;
 
+    /**
+     * Constructs table of tasks
+     *
+     * @param model
+     */
     public TaskTable(TasksModel model) {
         super();
         this.model = model;
