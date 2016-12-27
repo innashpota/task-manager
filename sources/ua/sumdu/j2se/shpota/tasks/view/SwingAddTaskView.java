@@ -63,25 +63,26 @@ public class SwingAddTaskView implements Observer {
 
     private void createFieldsBox() {
         Box fieldsTaskBox = Box.createVerticalBox();
+        fieldsTaskBox.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         Box titleBox = getTitleBox();
         Box checkBox = getCheckBox();
 
         timeFormat = createDataJFormat();
         timeFormat.setEditable(true);
-        Box timeBox = getTimeBox(timeFormat, "    Time:", 18);
+        Box timeBox = getTimeBox(timeFormat, "Time:", 18);
 
         startFormat = createDataJFormat();
         startFormat.setEditable(false);
-        Box startBox = getTimeBox(startFormat, "    Start:", 18);
+        Box startBox = getTimeBox(startFormat, "Start:", 18);
 
         endFormat = createDataJFormat();
         endFormat.setEditable(false);
-        Box endBox = getTimeBox(endFormat, "    End:", 25);
+        Box endBox = getTimeBox(endFormat, "End:", 25);
 
         intervalFormat = createIntervalJFormat();
         intervalFormat.setEditable(false);
-        Box intervalBox = getTimeBox(intervalFormat, "    Interval:", 4);
+        Box intervalBox = getTimeBox(intervalFormat, "Interval:", 4);
 
         isRepeated.addItemListener(itemEvent -> isRepeatedStateChanged());
 
@@ -110,7 +111,7 @@ public class SwingAddTaskView implements Observer {
 
     private Box getTitleBox() {
         Box titleBox = Box.createHorizontalBox();
-        titleBox.add(new JLabel("    Title:"));
+        titleBox.add(new JLabel("Title:"));
         titleBox.add(Box.createHorizontalStrut(20));
         title = new JTextField(30);
         titleBox.add(title);
