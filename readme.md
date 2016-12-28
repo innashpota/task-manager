@@ -40,11 +40,11 @@ Task manager - це додаток, який дозволяє планувати
 
 
 ###Інтерфейс
-1. Головне вікно додатку 
+Головне вікно додатку 
 
 ![main-window](./samples/main-window.PNG)
 
-2. Вікно створення задачі. Одноразової
+Вікно створення задачі. Одноразової
 
 ![add-non-repeated-task-window](./samples/add-non-repeated-task-window.PNG)
 
@@ -52,10 +52,10 @@ Task manager - це додаток, який дозволяє планувати
 
 ![add-repeated-task-window](./samples/add-repeated-task-window.PNG)
 
-3. Для видалення задачі необхідно спочатку її виділити та натиснути _Remove_.
+Для видалення задачі необхідно спочатку її виділити та натиснути _Remove_.
 
 ![remove-window](./samples/remove-window.PNG)
 
-4. Вікно закриття додатку.
+Вікно закриття додатку.
 
 ![confirmation-window](./samples/confirmation-window.PNG).
