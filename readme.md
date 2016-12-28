@@ -1,50 +1,33 @@
-Tasks simulator
+Додаток "Task manager"
 ===============
+##Для чого додаток потрібний?
+Даний додаток створювався відповідно до [завдань](./samples/assignment.pdf).
 
-#How to commit the changes to git:
-1) View the curent index state:
-```shell
-$ git status
-```
-2) Add the changes to index:
-```shell
-$ git add -A
-```
-3) Commit the changes:
-```shell
-$ git commit -m "A commit message..."
-```
-4) Push the changes:
-```shell
-$ git push origin master
-```
-5) Get the latest changes:
-```shell
-$ git pull
-```
+#####На даний момент в додатку можна:
+* зберігати дані між запусками у файловій системі;
+* створювати нові задачі;
+* видаляти задачі.
 
-6) Create a branch:
-```shell
-$ git checkout -b some-practic-number-and-name
-$ git status
-```
+#####В найближчий час планується зробити щоб додаток робив наступне:
+* сповіщати користувача в момент, коли деяка задача має бути виконана;
+* змінювати параметри існуючих задач;
+* переглядати інформацію про існуючі задачі;
+* переглядати календар запланованих подій на деякий проміжок часу.
 
-7) Push the changes for :
-```shell
-$ git push origin some-practic-number-and-name
-```
-8) Git fetch remote branch
-```shell
-$git fetch && git checkout practic-7-console-utility-assembly-and-testing
-```
 
-9) Git added ignored file
-```shell
-$git add -f my_file.txt
-```
-
-10) D:\programming\java\program.of.course\standard.edition\java.course.dev\nc-labs\projects\tasks\build
-
-```shell
-$ java -cp tasks.jar ua.sumdu.j2se.shpota.tasks.Main
-```
+##Як користуватися додатком?
+1) Спочатку необхідно запустити [файл](./run.bat).
+2) Відкриється головне вікно додатку 
+![main-window](./samples/main-window.PNG)
+3) Натиснувши кнопку _Add task_, Ви можете додати не повторювану задачу
+![add-non-repeated-task-window](./samples/add-non-repeated-task-window.PNG)
+або ж повторювану
+![add-repeated-task-window](./samples/add-repeated-task-window.PNG)
+заповнивши при цьому всі необхідні поля.
+4) Якщо Вам необхідно видалити задачу зі списку, то виділяєте необхідну задачу
+![remove-window](./samples/remove-window.PNG)
+і тисните _Remove_.
+5) Під час закриття додатку Вам необхідно підтвердити чи справді Ви хочете вийти з додатку
+![confirmation-window](./samples/confirmation-window.PNG).
+Якщо _Yes_, тоді всі зміни будуть збережені до наступного сеансу.
+В іншому випадку Ви повернетесь в головне вікно додатку.
