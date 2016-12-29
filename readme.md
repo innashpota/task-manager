@@ -1,50 +1,61 @@
-Tasks simulator
-===============
+#Task manager
+***
+Task manager - це додаток, який дозволяє планувати задачі одноразово або на певний проміжок часу. 
+Метою проекту було практичне застосування мови Java.
 
-#How to commit the changes to git:
-1) View the curent index state:
-```shell
-$ git status
-```
-2) Add the changes to index:
-```shell
-$ git add -A
-```
-3) Commit the changes:
-```shell
-$ git commit -m "A commit message..."
-```
-4) Push the changes:
-```shell
-$ git push origin master
-```
-5) Get the latest changes:
-```shell
-$ git pull
-```
+Протягом виконнаня мною було освоєно та імплементовано наступні техніки:
 
-6) Create a branch:
-```shell
-$ git checkout -b some-practic-number-and-name
-$ git status
-```
+* власні реалізації структур даних: ArrayList та LinkedList;
+* ітератори;
+* робота з файловою системою;
+* графічний інтерфейс з використанням Swing;
+* збірка та запуск проекту використовуючи javac, jar, java;
+* документація, утиліта javadoc.
 
-7) Push the changes for :
-```shell
-$ git push origin some-practic-number-and-name
-```
-8) Git fetch remote branch
-```shell
-$git fetch && git checkout practic-7-console-utility-assembly-and-testing
-```
+Було застосовуно наступні патерни проектування: MVC, Observer, Decorator, Factory method.
 
-9) Git added ignored file
-```shell
-$git add -f my_file.txt
-```
+Завдання та юніт тести були взяті [тут](./samples/assignment.pdf).
 
-10) D:\programming\java\program.of.course\standard.edition\java.course.dev\nc-labs\projects\tasks\build
+##Збірка і запуск проекту
+Для збірки проекту необхідно мати OC Windows з установленою JDK 8.
 
-```shell
-$ java -cp tasks.jar ua.sumdu.j2se.shpota.tasks.Main
-```
+Для запуску потрібно виконати з консолі команду [run.bat](./run.bat) - вона зкомпілює, 
+створить jar архів та запустить додаток.
+
+Для запуску тестів використовується команда [run-test.bat](./run-test.bat), яка відповідно компілює проект, 
+збирає jar архів, компілює тестові класи, створює окремий jar архів та запускає тести.
+
+Команда [docs.bat](./docs.bat) генерує документацію.
+
+##Функціонал
+
+###На даний момент доступні можливості:
+* створення одноразових та повторюваних задач;
+* видалення задач;
+* збереження даних між запусками у файлову систему.
+
+###Наступний функціонал буде імплементовано найближчим часом:
+* сповіщення користувача;
+* календар запланованих подій на деякий проміжок часу.
+
+
+###Інтерфейс
+Головне вікно додатку 
+
+![main-window](./samples/main-window.PNG)
+
+Вікно створення задачі. Одноразової
+
+![add-non-repeated-task-window](./samples/add-non-repeated-task-window.PNG)
+
+або ж повторюваної.
+
+![add-repeated-task-window](./samples/add-repeated-task-window.PNG)
+
+Для видалення задачі необхідно спочатку її виділити та натиснути _Remove_.
+
+![remove-window](./samples/remove-window.PNG)
+
+Вікно закриття додатку.
+
+![confirmation-window](./samples/confirmation-window.PNG).

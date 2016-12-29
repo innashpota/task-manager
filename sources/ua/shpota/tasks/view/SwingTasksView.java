@@ -55,13 +55,13 @@ public class SwingTasksView implements Observer {
     }
 
     private void createMenu() {
-        JMenuBar menuBar = new JMenuBar();
+        /*JMenuBar menuBar = new JMenuBar();
         JMenu calendar = new JMenu("Calendar");
         JMenuItem calendarItem = new JMenuItem("Calendar");
         calendar.add(calendarItem);
         menuBar.add(calendar);
 
-        frame.setJMenuBar(menuBar);
+        frame.setJMenuBar(menuBar);*/
     }
 
     private void createLabel() {
@@ -98,11 +98,11 @@ public class SwingTasksView implements Observer {
             addTaskView.createAddTaskView();
         });
 
-        JButton infoButton = new JButton("Information");
+        //JButton infoButton = new JButton("Information");
 
         buttonsPanel.add(removeButton);
         buttonsPanel.add(addNewTaskButton);
-        buttonsPanel.add(infoButton);
+        //buttonsPanel.add(infoButton);
 
         frame.add(buttonsPanel, SOUTH);
     }
