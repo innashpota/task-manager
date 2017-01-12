@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Observable;
 
 public class TasksModel extends Observable {
-    private static TaskList list;
+    private TaskList list;
 
     private TasksModel(TaskList list) {
         this.list = list;
@@ -29,7 +29,7 @@ public class TasksModel extends Observable {
      *
      * @throws IOException
      */
-    public static void storeTasksModel() throws IOException {
+    public void storeTasksModel() throws IOException {
         TaskIO.storeFile(getList());
     }
 
@@ -38,7 +38,7 @@ public class TasksModel extends Observable {
      *
      * @return list
      */
-    public static TaskList getList() {
+    public TaskList getList() {
         return list;
     }
 

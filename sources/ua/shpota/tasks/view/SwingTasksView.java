@@ -44,13 +44,18 @@ public class SwingTasksView implements Observer {
         createTable(model);
         createButtonsPanel();
         showView();
+
+        DisplayTrayIcon trayIcon = new DisplayTrayIcon();
+        SwingScheduledView scheduledView = new SwingScheduledView(model);
     }
 
     private void createFrame() {
         frame = new JFrame("Task manager");
+        frame.setIconImage(Toolkit.getDefaultToolkit().
+                getImage(getClass().getResource("/images/icon-1.png")));
         frame.setSize(new Dimension(300, 400));
         frame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        frame.addWindowListener(new DialogWindowAdapter());
+        frame.addWindowListener(new DialogWindowAdapter(model));
         frame.setLocationRelativeTo(null);
     }
 

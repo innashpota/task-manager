@@ -13,6 +13,11 @@ import static javax.swing.JOptionPane.*;
  * Class extends {@link WindowAdapter}
  */
 public class DialogWindowAdapter extends WindowAdapter {
+    private TasksModel model;
+
+    public DialogWindowAdapter(TasksModel model) {
+        this.model = model;
+    }
 
     @Override
     public void windowClosing(WindowEvent event) {
@@ -23,7 +28,7 @@ public class DialogWindowAdapter extends WindowAdapter {
                 null, options, options[0]);
         if (rc == 0) {
             try {
-                TasksModel.storeTasksModel();
+                model.storeTasksModel();
             } catch (IOException exception) {
                 showMessageDialog(null,
                         exception.getMessage(), "Warning",
