@@ -1,30 +1,23 @@
 package ua.shpota.tasks.model;
 
-import java.util.Date;
-import java.util.TimerTask;
+import java.util.Timer;
 
-import static ua.shpota.tasks.model.Tasks.incoming;
-
-public class ScheduledTask extends TimerTask {
+public class ScheduledTask {
     private TasksModel model;
 
     public ScheduledTask(TasksModel model) {
         this.model = model;
+        getNotification();
     }
 
-    @Override
-    public void run() {
-        Date now = new Date();
-        Date next = new Date(now.getTime() + 24 * 60 * 60 * 1000);
-        Iterable<Task> incoming = incoming(model.getList(), now, next);
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("Incoming tasks: \n");
-
-        for (Task task : incoming) {
-            sb.append(task.getTitle()).append("\n");
+    private void getNotification() {
+        NotificationTask notificationTask = new NotificationTask(model);
+        Timer timer = new Timer();
+        timer.schedule(notificationTask, 1000, 5 * 1000);
+        try {
+            Thread.sleep(2 * 1000);
+        } catch (InterruptedException exception) {
+            timer.cancel();
         }
-
-        System.out.print(sb.toString());
     }
 }
