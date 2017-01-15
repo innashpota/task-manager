@@ -27,10 +27,7 @@ public class DisplayTrayIcon {
         PopupMenu popupMenu = new PopupMenu();
         trayIcon = new TrayIcon(createIcon(), "", popupMenu);
         trayIcon.setToolTip("Task manager");
-        /*trayIcon.addActionListener(ActionEvent -> trayIcon.displayMessage("Incoming tasks:",
-                message, TrayIcon.MessageType.INFO));*/
-        trayIcon.displayMessage("Incoming tasks:",
-                "message" , TrayIcon.MessageType.INFO);
+
         MenuItem item = new MenuItem("Exit");
         item.addActionListener(actionEvent -> System.exit(0));
         popupMenu.add(item);
