@@ -7,7 +7,7 @@ import java.awt.*;
 import java.net.URL;
 
 public class DisplayTrayIcon {
-    private TrayIcon trayIcon;
+    public static TrayIcon trayIcon;
 
     private final SystemTray tray = SystemTray.getSystemTray();
     private final String desc = "Tray icon";
@@ -29,8 +29,10 @@ public class DisplayTrayIcon {
         trayIcon.setToolTip("Task manager");
         /*trayIcon.addActionListener(ActionEvent -> trayIcon.displayMessage("Incoming tasks:",
                 message, TrayIcon.MessageType.INFO));*/
+        trayIcon.displayMessage("Incoming tasks:",
+                "message" , TrayIcon.MessageType.INFO);
         MenuItem item = new MenuItem("Exit");
-        item.addActionListener(ActionEvent -> System.exit(0));
+        item.addActionListener(actionEvent -> System.exit(0));
         popupMenu.add(item);
 
         try {
