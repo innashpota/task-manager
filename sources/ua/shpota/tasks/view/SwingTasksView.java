@@ -1,6 +1,5 @@
 package ua.shpota.tasks.view;
 
-import ua.shpota.tasks.model.ScheduledTask;
 import ua.shpota.tasks.model.TasksModel;
 
 import javax.swing.*;
@@ -45,9 +44,6 @@ public class SwingTasksView implements Observer {
         createTable(model);
         createButtonsPanel();
         showView();
-
-        DisplayTrayIcon displayTrayIcon = new DisplayTrayIcon();
-        ScheduledTask scheduledView = new ScheduledTask(model);
     }
 
     private void createFrame() {
