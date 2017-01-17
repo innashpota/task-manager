@@ -1,7 +1,5 @@
 package ua.shpota.tasks.view;
 
-import ua.shpota.tasks.model.ScheduledTask;
-
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
@@ -9,15 +7,15 @@ import java.net.URL;
 public class DisplayTrayIcon {
     private TrayIcon trayIcon;
 
-    private final SystemTray tray = SystemTray.getSystemTray();
-    private final String desc = "Tray icon";
-    private final String path = "/images/icon-1-16p.png";
+    private static final SystemTray TRAY = SystemTray.getSystemTray();
+    private static final String DESCRIPTION = "Tray icon";
+    private static final String IMAGE_PATH = "/images/icon-1-16p.png";
 
-    public DisplayTrayIcon() {
-        showIcon();
+    public TrayIcon getTrayIcon() {
+        return trayIcon;
     }
 
-    private void showIcon() {
+    public void showIcon() {
         if (!SystemTray.isSupported()) {
             System.out.println("Error");
             System.exit(0);
@@ -27,21 +25,21 @@ public class DisplayTrayIcon {
         PopupMenu popupMenu = new PopupMenu();
         trayIcon = new TrayIcon(createIcon(), "", popupMenu);
         trayIcon.setToolTip("Task manager");
-        /*trayIcon.addActionListener(ActionEvent -> trayIcon.displayMessage("Incoming tasks:",
-                message, TrayIcon.MessageType.INFO));*/
+
         MenuItem item = new MenuItem("Exit");
-        item.addActionListener(ActionEvent -> System.exit(0));
+        item.addActionListener(actionEvent -> System.exit(0));
         popupMenu.add(item);
 
         try {
-            tray.add(trayIcon);
+            TRAY.add(trayIcon);
         } catch (AWTException e) {
             System.err.println("TrayIcon could not be added.");
+            System.exit(0);
         }
     }
 
     private Image createIcon() {
-        URL imageURL = ScheduledTask.class.getResource(path);
-        return new ImageIcon(imageURL, desc).getImage();
+        URL imageURL = this.getClass().getResource(IMAGE_PATH);
+        return new ImageIcon(imageURL, DESCRIPTION).getImage();
     }
 }
