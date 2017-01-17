@@ -56,6 +56,9 @@ public class SwingAddTaskView implements Observer {
 
     private void createFrame() {
         frame = new JFrame("Add task");
+        frame.setIconImage(Toolkit.getDefaultToolkit().
+                getImage(getClass().getResource("/images/icon-1.png")));
+        frame.setSize(new Dimension(300, 400));
         frame.setSize(new Dimension(400, 250));
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         frame.setLocationRelativeTo(null);
