@@ -1,4 +1,4 @@
-call build.bat
+call  build.bat
 if not exist .\build\test-classes md .\build\test-classes
 javac -d ./build/test-classes ^
 -classpath "lib/*;build/tasks.jar" ^
